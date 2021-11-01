@@ -4,12 +4,21 @@
 
 <h1>Orders Placed</h1>
 <% @orders.each do |order| %>
-	<p>Quantity: <%= order.quantity %><p>
-	<p>Is it rated: <%= order.is_rated %></p>
-	<p>Item is:</p>
-	<br />
-	<p><%= order.item.name %></p>
-	<p><%= order.item.description %></p>
-	<p><%= order.item.price %></p>
-	<br /><br />
+	<div class="jumbotron">
+		<h2><link_to root_path, '#'><%= order.item.name %></h2>
+		<p><small><%= order.item.description[0..49]+'...' %></small></p>
+		<p><b>Price: $</b><%= order.item.price %></p>
+		<p><b>Quantity:</b><%= order.quantity %></p>
+		<% if order.is_rated %>
+			<p>Yay! You already rated this item</p>
+		<% else %>
+			<button type="button" class="btn btn-primary" data-toggle="collapse" data-target="#ratingForm", aria-expanded="false", aria-controls="ratingFrom">Rate this Item</button>
+			<div class="row">
+				<div class="card card-body" id="ratingForm">
+					<%= render 'ratings/new' %>
+				</div>
+			</div>
+		<% end %>
+	</div>
+	<hr>
 <% end %>
