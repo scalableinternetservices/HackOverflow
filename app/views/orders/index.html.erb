@@ -1,0 +1,15 @@
+<% provide(:title, "Your Orders") %>
+
+<p id="notice"><%= notice %></p>
+
+<h1>Orders Placed</h1>
+<% @orders.each do |order| %>
+	<p>Quantity: <%= order.quantity %><p>
+	<p>Is it rated: <%= order.is_rated %></p>
+	<p>Item is:</p>
+	<br />
+	<p><%= order.item.name %></p>
+	<p><%= order.item.description %></p>
+	<p><%= order.item.price %></p>
+	<br /><br />
+<% end %>
