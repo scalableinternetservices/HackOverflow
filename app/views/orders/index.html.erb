@@ -12,7 +12,7 @@
 		<% if order.is_rated %>
 			<p>Yay! You already rated this item. Thank you for your rating</p>
 		<% else %>
-			<%= link_to 'Rate This Order', '#', class: "btn btn-primary", :target => "_blank" %>
+			<%= link_to 'Rate This Order', new_rating_path(:order_id => order.id), class: "btn btn-primary" %>
 		<% end %>
 	</div>
 	<hr>

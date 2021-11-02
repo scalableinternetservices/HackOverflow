@@ -9,7 +9,7 @@ class RatingsController < ApplicationController
 
 		if @rating.save
 			@rating.order.is_rated = true
-			redirect_to orders_path, notice: "Order was successfully rated."
+			render orders_path, notice: "Order was successfully rated."
 		else
 			redirect_to orders_path, notice: "Something Went Wrong!"
 		end
@@ -18,6 +18,6 @@ class RatingsController < ApplicationController
 	private
 
 		def rating_params
-			params.require(:rating).permit(:stars, :comment, :order_id)
+			params.permit(:stars, :comment, :order_id)
 		end
 end
