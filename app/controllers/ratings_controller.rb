@@ -1,6 +1,6 @@
 class RatingsController < ApplicationController
 	def new
-		redirect_to orders_path, notice: "This Order is already rated." if Order.find(params[:order_id]).is_rated
+		redirect_to orders_path, notice: "This Order is already rated." if !!Order.find(params[:order_id]).rating
 		@rating = Rating.new
 	end
 
@@ -8,8 +8,7 @@ class RatingsController < ApplicationController
 		@rating = Rating.new(rating_params)
 
 		if @rating.save
-			@rating.order.is_rated = true
-			render orders_path, notice: "Order was successfully rated."
+			redirect_to orders_path, notice: "Order was successfully rated."
 		else
 			redirect_to orders_path, notice: "Something Went Wrong!"
 		end
