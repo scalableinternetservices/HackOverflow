@@ -17,7 +17,7 @@ class CartController < ApplicationController
 	  item_ids.each do |item|
 	    Order.create(:item_id => item, :quantity => 1)
 	  end
-	Cart.delete_all
+	  Cart.delete_all
 	end
 	render 'cart/placeorder'
   end
