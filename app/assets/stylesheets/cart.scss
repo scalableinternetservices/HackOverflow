@@ -1,0 +1,25 @@
+// Place all the styles related to the Cart controller here.
+// They will automatically be included in application.css.
+// You can use Sass (SCSS) here: https://sass-lang.com/
+
+.cart_total_price {
+	text-align: right;
+}
+
+.cart_order_button {
+	width: 15%;
+	font-size: 1.2em !important;
+}
+
+.order_placed {
+	margin-top: 15%;
+	text-align: center;
+}
+
+.quantity {
+	width: 3%;
+}
+.quant1 {
+	margin: auto;
+	display: flex;
+}
