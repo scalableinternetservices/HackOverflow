@@ -9,17 +9,10 @@
             <p><b>Item Id:</b><%= cart.item.id %></small></p>
             <p><b>Description:</b><%= cart.item.description[0..49]+'...' %></small></p>
             <p><b>Price: $</b><%= cart.item.price %></p>
+
             <div>
                 <p><b>Quantity:</b></p>
-                <%= link_to "#", class: "btn btn-default btn-number", 
-                                :onclick => 'reduceQuantity();' do %>
-                    <span class="glyphicon glyphicon-minus"></span>
-                <% end %>
-                <input type="text" id= <%= "quantity_#{cart.item.id}"%> name="quantity" class="quantity" disabled value="1">
-                <%= link_to "#", class: "btn btn-default btn-number", 
-                                :onclick => "addQuantity();" do %>
-                    <span class="glyphicon glyphicon-plus"></span>
-                <% end %>
+                <%= f.select :quantity, (1..10), {}, {:class => "quantity"}%>
             </div>
             
         </div>
