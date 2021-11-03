@@ -4,6 +4,6 @@ window.addQuantity = function () {
 }
 
 window.reduceQuantity = function () {
-    alert("reduce quan");
+    alert("reduce quantity");
 
 }
