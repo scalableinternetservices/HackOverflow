@@ -3,5 +3,7 @@ Rails.application.routes.draw do
   root 'application#hello'
   get '/orders', to: 'orders#index'
   get '/ratings/:order_id', to: 'ratings#new', as: 'new_rating'
+  get '/items/new', to: 'items#new'
+  post '/items', to: 'items#create'
   post '/ratings/:order_id', to: 'ratings#create'
 end
