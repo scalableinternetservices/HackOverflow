@@ -1,5 +1,5 @@
 class HomeController < ApplicationController
   def index
-    "This is for testing"
+    @items = Item.all
   end
 end
