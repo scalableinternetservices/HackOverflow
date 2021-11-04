@@ -1,0 +1,35 @@
+<%= provide(:title, "Register a New Product") %>
+<p id="notice"><%= notice %></p>
+<%= form_with(model: @item) do |form| %>
+
+  <% if @item.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(rating.errors.count, "error") %> prohibited this rating from being saved:</h2>
+
+      <ul>
+        <% @item.errors.each do |error| %>
+          <li><%= error.full_message %></li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= form.label :name %>
+    <%= form.text_field :name, :maximum => 100 %>
+  </div>
+
+  <div class="field">
+    <%= form.label :description %>
+    <%= form.text_field :description, :maximum => 250 %>
+  </div>
+  
+  <div class="field">
+    <%= form.label :price %>
+    <%= form.number_field :price %>
+  </div>
+
+  <div class="actions">
+    <%= form.submit "Register Product" %>
+  </div>
+<% end %>
