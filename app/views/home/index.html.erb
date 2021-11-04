@@ -10,10 +10,10 @@
 <h1>Welcome to e-Kirana</h1>
 <% @items.each do |item| %>
 	<div class="jumbotron ">
-		<h2><%= link_to item.name, '#' %></h2>
+		<h2><%= link_to item.name, "/items/#{item.id}" %></h2>
 		<p><small><%= item.description[0..49]+'...' %></small></p>
 		<p><b>Price: $</b><%= item.price %></p>
-		<button type="button" class="btn btn-warning" onclick="reveal()">Add to Cart</button>
+		<%= button_to "Add to Cart", "/cart/#{item.id}", class: 'btn btn-warning' %>
 	</div>
 	<hr>
 <% end %>
