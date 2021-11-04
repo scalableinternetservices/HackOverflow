@@ -12,7 +12,5 @@ Rails.application.routes.draw do
 
   get '/showcart', to: 'cart#showcart'
   post '/orderplaced', to: 'cart#placeorder'
-  post '/addquantity', to: 'cart#addquantity', as: 'add_quantity'
-  post '/reducequantity', to: 'cart#reducequantity', as: 'reduce_quantity'
   
 end
