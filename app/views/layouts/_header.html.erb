@@ -1,12 +1,12 @@
 <header class="navbar navbar-fixed-top navbar-inverse">
 <div class="container">
-	<%= link_to "e-Kirana", '#', id: "logo" %>
+	<%= link_to "e-Kirana", '/', id: "logo" %>
 	<nav>
 	<ul class="nav navbar-nav navbar-right">
-	<li><%= link_to "Home", home_index_path %></li>
+	<li><%= link_to "Home", "/" %></li>
 	<li><%= link_to "Your Orders", orders_path %></li>
 	<li>
-		<%= link_to '#', class: "btn btn-dark" do %>
+		<%= link_to 'showcart', class: "btn btn-dark" do %>
 			<span class="glyphicon glyphicon-shopping-cart" alt='Shopping Cart'></span>
 		<% end %>
 	</li>
