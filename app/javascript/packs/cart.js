@@ -3,8 +3,16 @@ window.addQuantity = function () {
 
 }
 
-window.placeOrder = function () {
-    //alert("reduce quantity");
+window.placeOrder = function (value) {
+
+    var requestArray = [];
+    var ids = value.split(',');
+    for(id of ids) {
+        var quant = document.getElementById("quantity_"+id).value;
+        var obj = {"item_id": id, "quantity": quant};
+        requestArray.push(obj);
+    }
+    document.getElementById("requestparam").value = JSON.stringify({body: requestArray});
 
 }
 
@@ -25,5 +33,4 @@ window.changeQuantity = function (selectElement) {
     var newTotal = currTotal + diff;
 
     totalField.innerHTML = "<b>" + totalField.innerText.split("$")[0] + "$" + newTotal + "</b>";
-
 }

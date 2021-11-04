@@ -12,10 +12,10 @@ class CartController < ApplicationController
   end
 
   def placeorder
-	item_ids = params[:item_ids]
+	item_ids = JSON.parse(params[:requestparam])
 	ActiveRecord::Base.transaction do
-	  item_ids.each do |item|
-	    Order.create(:item_id => item, :quantity => 1)
+	  item_ids["body"].each do |item|
+	    Order.create(:item_id => item['item_id'], :quantity => item['quantity'])
 	  end
 	  Cart.delete_all
 	end
