@@ -4,4 +4,8 @@ Rails.application.routes.draw do
   get '/orders', to: 'orders#index'
   get '/ratings/:order_id', to: 'ratings#new', as: 'new_rating'
   post '/ratings/:order_id', to: 'ratings#create'
+
+  # route to get item id info
+  get '/items/:id', to: 'items#show'
+
 end
