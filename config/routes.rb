@@ -8,7 +8,7 @@ Rails.application.routes.draw do
   post '/items', to: 'items#create'
   post '/ratings/:order_id', to: 'ratings#create'
 
-  get '/showcart', to: 'cart#showcart'
-  post '/orderplaced', to: 'cart#placeorder'
-  
+  # route to get item id info
+  get '/items/:id', to: 'items#show'
+
 end
