@@ -10,9 +10,11 @@
 					<span class="glyphicon glyphicon-shopping-cart" alt='Shopping Cart'></span>
 				<% end %>
 			</li>
+			<li><%= link_to "Profile", current_buyer.email %></li>
 			<li><%= link_to "Sign Out", destroy_buyer_session_path, method: :delete %></li>
 		<% elsif seller_signed_in? %>
 			<li><%= link_to "Add New Item", "items/new" %></li>
+			<li><%= link_to "Profile", current_seller.email %></li>
 			<li><%= link_to "Sign Out", destroy_seller_session_path, method: :delete %></li>
 		<% else %>
 			<li><%= link_to "Buyer Sign In", new_buyer_session_path %></li>
