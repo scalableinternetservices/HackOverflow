@@ -17,3 +17,19 @@ Rails.application.routes.draw do
   get '/items/:id', to: 'items#show'
   post '/cart/:id', to: 'cart#additem'
 end
+
+=begin
+
+This is what I have seen after running 'rails g devise:controllers buyers' and sellers too. Might be useful
+
+Some setup you must do manually if you haven't yet:
+
+  Ensure you have overridden routes for generated controllers in your routes.rb.
+  For example:
+
+    Rails.application.routes.draw do
+      devise_for :users, controllers: {
+        sessions: 'users/sessions'
+      }
+    end
+=end
