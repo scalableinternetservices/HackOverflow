@@ -1,5 +1,5 @@
 class ItemsController < ApplicationController
-	before_action :authenticate_seller!, only: [:create]
+	before_action :authenticate_seller!, only: [:new, :create]
 
 	def new
 		@item = Item.new
