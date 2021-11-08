@@ -1,6 +1,7 @@
 <% provide(:title, "Item") %>
 
-<p id="notice"><%= notice %></p>
+<% if notice %><div class="alert alert-info" id="notice"><%= notice %></div><% end %>
+<% if notice %><div class="alert alert-warning" id="alert"><%= alert %></div><% end %>
 
 <h1>Item Info</h1>
 <div class="jumbotron">
