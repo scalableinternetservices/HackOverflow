@@ -38,7 +38,7 @@ The output should look something like this:
 ```txt
       Name                    Command              State    Ports
 -------------------------------------------------------------------
-projectname_db_1   docker-entrypoint.sh postgres   Up      5432/tcp
+hackoverflow_db_1   docker-entrypoint.sh postgres   Up      5432/tcp
 ```
 
 Run the following to create the database:
