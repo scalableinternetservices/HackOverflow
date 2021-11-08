@@ -1,6 +1,6 @@
 class ItemsController < ApplicationController
 	def new
-		@item = Item.new.reverse # Needed to show recently added items first
+		@item = Item.new
 	end
 
 	def show
