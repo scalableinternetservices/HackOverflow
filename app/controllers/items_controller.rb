@@ -15,6 +15,7 @@ class ItemsController < ApplicationController
 			end
 		end
 		@overall_rating = @stars.sum / @stars.count
+		@overall_rating = @overall_rating.round(1) # Rounding it to 1 decimal point
 	end
 
 	def create
