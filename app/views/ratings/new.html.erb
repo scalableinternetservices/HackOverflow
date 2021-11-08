@@ -1,7 +1,7 @@
 <% provide(:title, "Ratings") %>
 
 <% if notice %><div class="alert alert-info" id="notice"><%= notice %></div><% end %>
-<% if notice %><div class="alert alert-warning" id="alert"><%= alert %></div><% end %>
+<% if alert %><div class="alert alert-warning" id="alert"><%= alert %></div><% end %>
 
 <h1>Rating for Order - <%= params[:order_id] %></h1>
 <div class="row">
