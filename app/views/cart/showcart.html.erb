@@ -11,18 +11,31 @@
 <%= form_with url: "/orderplaced", method: :post do |f| %>
   <% @carts.each do |cart| %>
     <% item_ids << cart.item.id %>
-      <div class="jumbotron">
-        <h2><%= link_to cart.item.name, '#' %></h2>
-        <p><b>Description:</b><%= cart.item.description[0..49]+'...' %></p>
-        <p id= <%= "price_#{cart.item.id}"%> hidden><b>Price: $</b><%= cart.item.price %></p>
-        <p id= <%= "cost_#{cart.item.id}"%>><b>Cost: $</b><%= cart.item.price %></p>
-        <p><b>Quantity:</b></p>
-        <%= select_tag "quantity", options_for_select(1..10),
-                class: "quantity", id: "quantity_#{cart.item.id}",
-                    onchange: "changeQuantity(this);"%>
+    <div class="jumbotron">
+      <h2><%= link_to cart.item.name, '#' %></h2>
+      <p><b>Description:</b><%= cart.item.description[0..49]+'...' %></p>
+      <p id= <%= "price_#{cart.item.id}"%> hidden><b>Price: $</b><%= cart.item.price %></p>
+      <p id= <%= "cost_#{cart.item.id}"%>><b>Cost: $</b><%= cart.item.price %></p>
+      <p><b>Quantity:</b></p>
+      <%= select_tag "quantity", options_for_select(1..10),
+              class: "quantity", id: "quantity_#{cart.item.id}",
+                  onchange: "changeQuantity(this);"%>
+    </div>
+    <br>
+  <% end %>
+  
+
+  <div class="address">
+    <h4>Shipping Address</h4>
+    <% @addresses.each do |address| %>
+      <div>
+      <%= f.radio_button :address, "#{address.id}"%>
+      <%= f.label :address, address.street_address %>
       </div>
-      <br>
     <% end %>
+  </div>
+  
+
   <% ids = item_ids.join(',') %>
   <%= hidden_field_tag "requestparam"%>
   <div class='cart_total_price'>

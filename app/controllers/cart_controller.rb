@@ -4,7 +4,9 @@ class CartController < ApplicationController
   def showcart
 		items = Cart.order(:id)
 		@carts = items
-
+		@addresses = Address.all
+		#@addresses = Address.where(buyer_id: params[:id]).take
+		
 		price = 0;
 		items.each do |cart|
 		  price += cart.item.price
@@ -31,11 +33,11 @@ class CartController < ApplicationController
   	end
   	@cart = Cart.new(item_id: params[:id])
   	if @cart.save
-  		puts "Sharath1"
-			redirect_to root_path, notice: "Item succesfully added to the Cart"
-		else
-			puts "Sharath2"
-			redirect_to root_path, notice: "Something went wrong"
-		end
+	puts "Sharath1"
+		redirect_to root_path, notice: "Item succesfully added to the Cart"
+	else
+		puts "Sharath2"
+		redirect_to root_path, notice: "Something went wrong"
+	end
   end
 end

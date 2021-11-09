@@ -6,7 +6,7 @@
 		<% if buyer_signed_in? %>
 			<li><%= link_to "Your Orders", orders_path %></li>
 			<li>
-				<%= link_to 'showcart', class: "btn btn-dark" do %>
+				<%= link_to showcart_path, class: "btn btn-dark" do %>
 					<span class="glyphicon glyphicon-shopping-cart" alt='Shopping Cart'></span>
 				<% end %>
 			</li>
