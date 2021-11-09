@@ -1,8 +1,10 @@
 class CartController < ApplicationController
+  before_action :authenticate_buyer!
+
   def showcart
 		items = Cart.order(:id)
 		@carts = items
-		
+
 		price = 0;
 		items.each do |cart|
 		  price += cart.item.price

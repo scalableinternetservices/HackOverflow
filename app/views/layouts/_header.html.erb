@@ -3,20 +3,25 @@
 	<%= link_to "e-Kirana", '/', id: "logo" %>
 	<nav>
 	<ul class="nav navbar-nav navbar-right">
-		<li><%= link_to "Home", "/" %></li>
-		<li><%= link_to "Your Orders", orders_path %></li>
-		<li><%= link_to "Add New Item", "items/new" %></li>
 		<% if buyer_signed_in? %>
+			<li><%= link_to "Your Orders", orders_path %></li>
+			<li>
+				<%= link_to 'showcart', class: "btn btn-dark" do %>
+					<span class="glyphicon glyphicon-shopping-cart" alt='Shopping Cart'></span>
+				<% end %>
+			</li>
+			<li><%= link_to "Profile", current_buyer.email %></li>
 			<li><%= link_to "Sign Out", destroy_buyer_session_path, method: :delete %></li>
+		<% elsif seller_signed_in? %>
+			<li><%= link_to "Add New Item", "items/new" %></li>
+			<li><%= link_to "Profile", current_seller.email %></li>
+			<li><%= link_to "Sign Out", destroy_seller_session_path, method: :delete %></li>
 		<% else %>
 			<li><%= link_to "Buyer Sign In", new_buyer_session_path %></li>
 			<li><%= link_to "Buyer Sign Up", new_buyer_registration_path %></li>
+			<li><%= link_to "Seller Sign In", new_seller_session_path %></li>
+			<li><%= link_to "Seller Sign Up", new_seller_registration_path %></li>
 		<% end %>
-		<li>
-			<%= link_to 'showcart', class: "btn btn-dark" do %>
-				<span class="glyphicon glyphicon-shopping-cart" alt='Shopping Cart'></span>
-			<% end %>
-		</li>
 	</ul>
 	</nav>
 </div>
