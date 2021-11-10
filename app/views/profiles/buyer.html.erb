@@ -1,0 +1,14 @@
+<% provide(:title, "Buyer Profile") %>
+
+<% if notice %><div class="alert alert-info" id="notice"><%= notice %></div><% end %>
+<% if alert %><div class="alert alert-warning" id="alert"><%= alert %></div><% end %>
+
+<h1>Buyer Profile</h1>
+<div class="jumbotron">
+    <p><b>Email: </b><%= current_buyer.email %></p>
+    <%= button_to "Your Cart", showcart_path, method: :get, class: 'btn btn-info' %>
+    <%= button_to "Your Orders", orders_path, method: :get, class: 'btn btn-info' %>
+</div>
+
+
+<hr>

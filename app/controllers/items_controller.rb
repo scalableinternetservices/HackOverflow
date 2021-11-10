@@ -16,7 +16,15 @@ class ItemsController < ApplicationController
 				@stars << order.rating.stars
 			end
 		end
-		@overall_rating = @stars.sum / @stars.count
+
+		# if more than one stars awarded, calculate avg
+		# else give a default 0 rating
+		if @stars.count > 0 
+			@overall_rating = @stars.sum / @stars.count
+		else
+			@overall_rating = 0
+		end
+		
 		@overall_rating = @overall_rating.round(1) # Rounding it to 1 decimal point
 	end
 

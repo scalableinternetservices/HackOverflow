@@ -1,0 +1,11 @@
+<% provide(:title, "Seller Profile") %>
+
+<% if notice %><div class="alert alert-info" id="notice"><%= notice %></div><% end %>
+<% if alert %><div class="alert alert-warning" id="alert"><%= alert %></div><% end %>
+
+<h1>Seller Profile</h1>
+<div class="jumbotron">
+    <p><b>Email: </b><%= current_seller.email %></p>
+</div>
+
+<hr>
