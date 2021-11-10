@@ -21,8 +21,8 @@
               class: "quantity", id: "quantity_#{cart.item.id}",
                   onchange: "changeQuantity(this);"%>
       <br/>
-      <%= link_to "#", class: "btn btn-default btn-number", id: "delete_#{cart.item.id}",
-              :onclick => 'removeItem(event, this);' do %>
+      <%= link_to "/cart/#{cart.item.id}", class: "btn btn-default btn-number", 
+              id: "delete_#{cart.item.id}", method: :delete, :onclick => 'notcalled(event, this);' do %>
             <span class="glyphicon glyphicon-remove"></span> Delete
       <% end %>
     </div>

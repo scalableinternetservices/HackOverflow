@@ -40,4 +40,13 @@ class CartController < ApplicationController
 		redirect_to root_path, notice: "Something went wrong"
 	end
   end
+
+  def deleteitem
+	item_id = params[:id]
+	if Cart.find_by_item_id(item_id)
+		Cart.find_by_item_id(item_id).destroy
+		item = Item.find(item_id)
+		redirect_to showcart_path, notice: item.name+ " removed from the Cart"
+	end
+  end
 end
