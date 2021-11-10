@@ -1,4 +1,5 @@
 class Address < ApplicationRecord
+	belongs_to :buyer
 	validates :street_address, presence: true, length: {maximum: 250}
 	validates :city, presence: true, length: {maximum: 50}
 	validates :state, presence: true, length: {maximum: 50}
