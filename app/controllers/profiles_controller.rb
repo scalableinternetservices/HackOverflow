@@ -1,10 +1,13 @@
 class ProfilesController < ApplicationController
+    before_action :authenticate_seller!, only: [:seller]
+    before_action :authenticate_buyer!, only: [:buyer]
+
     def buyer
-        render html:"Hello World, I am a buyer"
+        render "buyer"
     end
 
     def seller
-        render html:"Hello World, I am a seller"
+        render "seller"
     end
 
 end
