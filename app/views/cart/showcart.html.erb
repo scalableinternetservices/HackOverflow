@@ -33,11 +33,16 @@
   <% if !@carts.empty? %>
     <div class="address" id="address_div">
       <h4>Shipping Address</h4>
-      <% @addresses.each do |address| %>
-        <div>
-        <%= f.radio_button :address, "#{address.id}", :checked => true%>
-        <%= f.label :address, address.street_address+", "+address.city %>
-        </div>
+      <% if !@addresses.empty? %>
+        <% @addresses.each do |address| %>
+          <div>
+          <%= f.radio_button :address, "#{address.id}", :checked => true%>
+          <%= f.label :address, address.street_address+", "+address.city %>
+          </div>
+        <% end %>
+      <% end %>
+      <% if @addresses.empty? %>
+          <div>Please add a delivery address and proceed</div>
       <% end %>
     </div>
   <% end %>
