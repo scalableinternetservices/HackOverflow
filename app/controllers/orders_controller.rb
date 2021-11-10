@@ -4,4 +4,5 @@ class OrdersController < ApplicationController
 	def index
 		@orders = Order.all.reverse # Needed to show latest orders first
 	end
+        # Jsut checking if everything is working in chromebook
 end
