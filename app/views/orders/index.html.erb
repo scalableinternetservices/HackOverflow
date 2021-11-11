@@ -1,11 +1,12 @@
 <% provide(:title, "Your Orders") %>
 
-<p id="notice"><%= notice %></p>
+<% if notice %><div class="alert alert-info" id="notice"><%= notice %></div><% end %>
+<% if alert %><div class="alert alert-warning" id="alert"><%= alert %></div><% end %>
 
 <h1>Orders Placed</h1>
 <% @orders.each do |order| %>
 	<div class="jumbotron">
-		<h2><%= link_to order.item.name, '#' %></h2>
+		<h2><%= link_to order.item.name, "/items/#{order.item.id}" %></h2>
 		<p><small><%= order.item.description[0..49]+'...' %></small></p>
 		<p><b>Price: $</b><%= order.item.price %></p>
 		<p><b>Quantity:</b><%= order.quantity %></p>

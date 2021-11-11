@@ -1,11 +1,24 @@
 <% provide(:title, "Item") %>
 
-<p id="notice"><%= notice %></p>
+<% if notice %><div class="alert alert-info" id="notice"><%= notice %></div><% end %>
+<% if alert %><div class="alert alert-warning" id="alert"><%= alert %></div><% end %>
 
 <h1>Item Info</h1>
 <div class="jumbotron">
-    <h2>Name: <%= @item.name %></h2>
-    <h2>Price: $<%= @item.price %></h2>
-    <h2>Description: <%= @item.description %></h2>
+    <p><b>Name: </b><%= @item.name %></p>
+    <p><b>Price: $</b><%= @item.price %></p>
+    <p><b>Description: </b><%= @item.description %></p>
+	<p><span class="glyphicon glyphicon-star"></span><%= @overall_rating %>/5</p>
+	<h1>Buyer Ratings</h1>
+	<% @ratings.each do |rating| %>
+		<% rating.stars.times do %>
+			<span class="glyphicon glyphicon-star"></span>
+		<% end %>
+		<% rating.blank_stars.times do %>
+			<span class="glyphicon glyphicon-star-empty"></span>
+		<% end %>
+		<p><%= rating.comment %></p>
+		<hr>
+	<% end %>
 </div>
 <hr>
