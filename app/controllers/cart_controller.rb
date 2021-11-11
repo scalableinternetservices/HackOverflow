@@ -5,8 +5,6 @@ class CartController < ApplicationController
 
 		items = Cart.where(buyer_id: current_buyer.id).order(:id)
 		@carts = items
-
-		@addresses = Address.where(buyer_id: current_buyer.id)
 		
 		price = 0;
 		items.each do |cart|

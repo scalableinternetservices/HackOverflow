@@ -51,7 +51,6 @@
 
   <% ids = item_ids.join(',') %>
   <%= hidden_field_tag "requestparam"%>
-  <%= hidden_field_tag "buyer_id", :value => current_buyer%>
   <div class='cart_total_price'>
     <h4 id="totalCost"><b>Total Cost: $<%= @totalcost%></b></h4>
       <%= button_to "Place Order", { action: "placeorder" }, id: "place_order",
