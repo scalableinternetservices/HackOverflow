@@ -50,6 +50,8 @@ ActiveRecord::Schema.define(version: 2021_11_11_050155) do
     t.decimal "price"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.string "seller_id"
+    t.string "integer"
   end
 
   create_table "orders", force: :cascade do |t|
