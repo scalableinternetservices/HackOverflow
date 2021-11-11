@@ -23,10 +23,10 @@ window.changeQuantity = function (selectElement) {
     totalField.innerHTML = "<b>" + totalField.innerText.split("$")[0] + "$" + newTotal + "</b>";
 }
 
-window.placeOrder = function (value) {
+window.placeOrder = function (item_ids) {
 
     var requestArray = [];
-    var ids = value.split(',');
+    var ids = item_ids.split(',');
     ids = ids.filter( function( id ) {
         return !removedItems.includes( id );
       });

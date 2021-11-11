@@ -2,10 +2,12 @@ class CartController < ApplicationController
   before_action :authenticate_buyer!
 
   def showcart
-		items = Cart.order(:id)
+		puts params[:buyer_id]
+		#items = Cart.order(:id)
+		items = Cart.where(buyer_id: params[:buyer_id]).order(:id)
 		@carts = items
-		@addresses = Address.all
-		#@addresses = Address.where(buyer_id: params[:id]).take
+		#@addresses = Address.all
+		@addresses = Address.where(buyer_id: params[:buyer_id])
 		
 		price = 0;
 		items.each do |cart|
@@ -19,6 +21,7 @@ class CartController < ApplicationController
 		item_ids = JSON.parse(params[:requestparam])
 		ActiveRecord::Base.transaction do
 		  item_ids["body"].each do |item|
+			# include buyer id
 		    Order.create(:item_id => item['item_id'], :quantity => item['quantity'])
 		  end
 		  Cart.delete_all
