@@ -10,20 +10,10 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_11_10_202930) do
+ActiveRecord::Schema.define(version: 2021_11_11_060757) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
-
-  create_table "addresses", force: :cascade do |t|
-    t.string "street_address"
-    t.string "city"
-    t.string "state"
-    t.string "zipcode"
-    t.datetime "created_at", precision: 6, null: false
-    t.datetime "updated_at", precision: 6, null: false
-    t.integer "buyer_id"
-  end
 
   create_table "buyers", force: :cascade do |t|
     t.string "email", default: "", null: false
@@ -50,6 +40,8 @@ ActiveRecord::Schema.define(version: 2021_11_10_202930) do
     t.decimal "price"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.string "seller_id"
+    t.string "integer"
   end
 
   create_table "orders", force: :cascade do |t|
@@ -58,6 +50,7 @@ ActiveRecord::Schema.define(version: 2021_11_10_202930) do
     t.datetime "updated_at", precision: 6, null: false
     t.integer "item_id"
     t.integer "rating_id"
+    t.integer "buyer_id"
   end
 
   create_table "ratings", force: :cascade do |t|

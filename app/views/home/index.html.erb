@@ -4,12 +4,22 @@
 <% if alert %><div class="alert alert-warning" id="alert"><%= alert %></div><% end %>
 
 <h1>Welcome to e-Kirana</h1>
+
+<% logged = false %>
+<% if buyer_signed_in? %>
+<% logged = true %>
+<% end %>
+
 <% @items.each do |item| %>
 	<div class="jumbotron ">
 		<h2><%= link_to item.name, "/items/#{item.id}" %></h2>
 		<p><small><%= item.description[0..49]+'...' %></small></p>
 		<p><b>Price: $</b><%= item.price %></p>
-		<%= button_to "Add to Cart", "/cart/#{item.id}", class: 'btn btn-warning' %>
+		<% if logged %>
+			<%= button_to "Add to Cart", "/cart/#{item.id}", class: 'btn btn-warning' %>
+		<% else %>
+			<%= button_to "Sign in to add to Cart", "/", class: 'btn btn-danger disabled' %>
+		<% end %>
 	</div>
 	<hr>
 <% end %>
