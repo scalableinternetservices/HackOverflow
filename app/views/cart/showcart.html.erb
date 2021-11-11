@@ -21,8 +21,8 @@
               class: "quantity", id: "quantity_#{cart.item.id}",
                   onchange: "changeQuantity(this);"%>
       <br/>
-      <%= link_to "#", class: "btn btn-default btn-number", id: "delete_#{cart.item.id}",
-              :onclick => 'removeItem(event, this);' do %>
+      <%= link_to "/cart/#{cart.item.id}", class: "btn btn-default btn-number", 
+              id: "delete_#{cart.item.id}", method: :delete, :onclick => 'notcalled(event, this);' do %>
             <span class="glyphicon glyphicon-remove"></span> Delete
       <% end %>
     </div>
@@ -30,14 +30,15 @@
   <% end %>
   
 
-  <% if !@carts.empty? %>
+  <% if false %>
     <div class="address" id="address_div">
       <h4>Shipping Address</h4>
       <% if !@addresses.empty? %>
         <% @addresses.each do |address| %>
           <div>
           <%= f.radio_button :address, "#{address.id}", :checked => true%>
-          <%= f.label :address, address.street_address+", "+address.city %>
+          <%= f.label :address, address.street_address+", "+address.city+", "+
+              address.state+" "+address.zipcode %>
           </div>
         <% end %>
       <% end %>
@@ -50,6 +51,7 @@
 
   <% ids = item_ids.join(',') %>
   <%= hidden_field_tag "requestparam"%>
+  <%= hidden_field_tag "buyer_id", :value => current_buyer%>
   <div class='cart_total_price'>
     <h4 id="totalCost"><b>Total Cost: $<%= @totalcost%></b></h4>
       <%= button_to "Place Order", { action: "placeorder" }, id: "place_order",

@@ -2,10 +2,11 @@ class CartController < ApplicationController
   before_action :authenticate_buyer!
 
   def showcart
-		items = Cart.order(:id)
+
+		items = Cart.where(buyer_id: current_buyer.id).order(:id)
 		@carts = items
-		@addresses = Address.all
-		#@addresses = Address.where(buyer_id: params[:id]).take
+
+		@addresses = Address.where(buyer_id: current_buyer.id)
 		
 		price = 0;
 		items.each do |cart|
@@ -19,7 +20,8 @@ class CartController < ApplicationController
 		item_ids = JSON.parse(params[:requestparam])
 		ActiveRecord::Base.transaction do
 		  item_ids["body"].each do |item|
-		    Order.create(:item_id => item['item_id'], :quantity => item['quantity'])
+		    Order.create(:item_id => item['item_id'], :quantity => item['quantity'], 
+					:buyer_id => current_buyer.id)
 		  end
 		  Cart.delete_all
 		end
@@ -27,13 +29,11 @@ class CartController < ApplicationController
   end
 
   def additem
-  	temp = params[:id]
-  	ind = temp.index('*')
-  	item_id = temp[0..ind-1]
+  	item_id = params[:id]
 
-  	buyer_id = temp[ind+1..-1]
+  	buyer_id = current_buyer.id
 
-  	if !!Cart.find_by_item_id(item_id)
+  	if Cart.find_by_item_id(item_id)
   		redirect_to root_path, notice: "Item already exists in the Cart"
   		return
   	end
@@ -43,5 +43,14 @@ class CartController < ApplicationController
 		else
 			redirect_to root_path, notice: "Something went wrong"
 		end
+  end
+
+  def deleteitem
+	item_id = params[:id]
+	if Cart.find_by_item_id(item_id)
+		Cart.find_by_item_id(item_id).destroy
+		item = Item.find(item_id)
+		redirect_to showcart_path, notice: item.name+ " removed from the Cart"
+	end
   end
 end
