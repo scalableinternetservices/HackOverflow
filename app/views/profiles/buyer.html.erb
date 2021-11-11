@@ -6,8 +6,8 @@
 <h1>Buyer Profile</h1>
 <div class="jumbotron">
     <p><b>Email: </b><%= current_buyer.email %></p>
-    <%= button_to "Your Cart", showcart_path, method: :get, class: 'btn btn-info' %>
-    <%= button_to "Your Orders", orders_path, method: :get, class: 'btn btn-info' %>
+    <p><%= button_to "Your Cart", showcart_path, method: :get, class: 'btn btn-primary' %></p>
+    <p><%= button_to "Your Orders", orders_path, method: :get, class: 'btn btn-primary' %></p>
 </div>
 
 
