@@ -27,17 +27,21 @@ class CartController < ApplicationController
   end
 
   def additem
-  	if !!Cart.find_by_item_id(params[:id])
+  	temp = params[:id]
+  	ind = temp.index('*')
+  	item_id = temp[0..ind-1]
+
+  	buyer_id = temp[ind+1..-1]
+
+  	if !!Cart.find_by_item_id(item_id)
   		redirect_to root_path, notice: "Item already exists in the Cart"
   		return
   	end
-  	@cart = Cart.new(item_id: params[:id])
+  	@cart = Cart.new(item_id: item_id, buyer_id: buyer_id)
   	if @cart.save
-	puts "Sharath1"
-		redirect_to root_path, notice: "Item succesfully added to the Cart"
-	else
-		puts "Sharath2"
-		redirect_to root_path, notice: "Something went wrong"
-	end
+			redirect_to root_path, notice: "Item succesfully added to the Cart"
+		else
+			redirect_to root_path, notice: "Something went wrong"
+		end
   end
 end
