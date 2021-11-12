@@ -29,7 +29,7 @@ class ItemsController < ApplicationController
 	end
 
 	def create
-		@item = Item.new(item_params)
+		@item = current_seller.items.new(item_params)
 
 		if @item.save
 			redirect_to root_path, notice: "You Have Successfully posted an Item!"

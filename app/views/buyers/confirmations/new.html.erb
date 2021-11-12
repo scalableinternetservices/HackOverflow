@@ -1,5 +1,9 @@
 <h2>Resend confirmation instructions</h2>
 
+<% if notice %><div class="alert alert-info" id="notice"><%= notice %></div><% end %>
+<% if alert %><div class="alert alert-warning" id="alert"><%= alert %></div><% end %>
+
+
 <%= form_for(resource, as: resource_name, url: confirmation_path(resource_name), html: { method: :post }) do |f| %>
   <%= render "buyers/shared/error_messages", resource: resource %>
 
