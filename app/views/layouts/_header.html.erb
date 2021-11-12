@@ -1,7 +1,11 @@
 <header class="navbar navbar-fixed-top navbar-inverse">
 <div class="container">
-	<%= link_to "e-Kirana", '/', id: "logo" %>
 	<nav>
+	<ul class="nav navbar-nav navbar-left">
+		<li><%= image_tag("ekirana_logo.png", class: "img-responsive", id: "navbar-logo") %></li> 
+		<li><%= link_to "eKirana", '/', id: "logo" %></li>
+	</ul>
+	
 	<ul class="nav navbar-nav navbar-right">
 		<% if buyer_signed_in? %>
 			<li><%= link_to "Your Orders", orders_path %></li>
