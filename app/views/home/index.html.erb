@@ -3,7 +3,7 @@
 <% if notice %><div class="alert alert-info" id="notice"><%= notice %></div><% end %>
 <% if alert %><div class="alert alert-warning" id="alert"><%= alert %></div><% end %>
 
-<h1>Welcome to e-Kirana</h1>
+<h1>Welcome to eKirana</h1>
 <% @items.each do |item| %>
 	<div class="jumbotron ">
 		<h2><%= link_to item.name, "/items/#{item.id}" %></h2>
