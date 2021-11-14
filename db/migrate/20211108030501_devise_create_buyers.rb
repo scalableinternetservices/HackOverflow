@@ -2,7 +2,6 @@
 
 class DeviseCreateBuyers < ActiveRecord::Migration[6.1]
   def change
-    drop_table :buyers # Needed as I previously created the table. It is giving me trouble if this line isn't there
     create_table :buyers do |t|
       ## Database authenticatable
       t.string :email,              null: false, default: ""

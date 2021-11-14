@@ -2,7 +2,6 @@
 
 class DeviseCreateSellers < ActiveRecord::Migration[6.1]
   def change
-	drop_table :sellers
     create_table :sellers do |t|
       ## Database authenticatable
       t.string :email,              null: false, default: ""
