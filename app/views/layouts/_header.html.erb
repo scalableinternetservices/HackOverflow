@@ -17,7 +17,7 @@
 			<li><%= link_to "Profile", "/profile/buyer" %></li>
 			<li><%= link_to "Sign Out", destroy_buyer_session_path, method: :delete %></li>
 		<% elsif seller_signed_in? %>
-			<li><%= link_to "Add New Item", "items/new" %></li>
+			<li><%= link_to "Add New Item", "/items/new" %></li>
 			<li><%= link_to "Profile", "/profile/seller" %></li>
 			<li><%= link_to "Sign Out", destroy_seller_session_path, method: :delete %></li>
 		<% else %>
