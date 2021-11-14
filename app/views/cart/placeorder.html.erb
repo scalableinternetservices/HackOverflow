@@ -1,5 +1,8 @@
 <% provide(:title, "Order Placed") %>
 
+<% if notice %><div class="alert alert-info" id="notice"><%= notice %></div><% end %>
+<% if alert %><div class="alert alert-warning" id="alert"><%= alert %></div><% end %>
+
 <div class="order_placed">
 	Thank you for shopping with us. Your order has been placed.
 </div>
