@@ -18,8 +18,8 @@ Rails.application.routes.draw do
   post '/orderplaced', to: 'cart#placeorder'
   
   # Items controller
-  get '/items/:id', to: 'items#show'
   get '/items/new', to: 'items#new'
+  get '/items/:id', to: 'items#show'
   post '/items', to: 'items#create'
   
   # Profile controller
