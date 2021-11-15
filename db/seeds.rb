@@ -5,3 +5,42 @@
 #
 #   movies = Movie.create([{ name: 'Star Wars' }, { name: 'Lord of the Rings' }])
 #   Character.create(name: 'Luke', movie: movies.first)
+
+#################################
+# Clean the Tables before Seeding
+#################################
+puts "DEBUG: Cleaning up all the databases"
+
+Buyer.delete_all
+Seller.delete_all
+Cart.delete_all
+Item.delete_all
+Order.delete_all
+Rating.delete_all
+
+#################################
+# Creating 100 Buyers
+#################################
+puts "DEBUG: Creating 100 Buyers"
+
+for i in 1..100 do
+  Buyer.create!(email: "buyer_#{i}@example.com", password: "BuyerP@$$wor6", password_confirmation: "BuyerP@$$wor6")
+end
+
+#################################
+# Creating 10 Sellers
+#################################
+puts "DEBUG: Creating 10 Sellers"
+
+for i in 1..10 do
+  Seller.create!(email: "seller_#{i}@example.com", password: "SellerP@$$wor6", password_confirmation: "SellerP@$$wor6")
+end
+
+#################################
+# Creating 300 Items
+#################################
+puts "DEBUG: Creating 300 Items. Creating with random seller ids."
+
+for i in 1..300 do
+  Item.create!(name: "Item_#{i}", description: "Half a league, half a league, half a league onward. All in the valley of Death. Rode the six hundred... Into the valley o death, rode the six hundred.", price: rand(0..2000), seller_id: rand(1..10))
+end
