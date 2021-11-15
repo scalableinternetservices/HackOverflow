@@ -7,6 +7,7 @@ class ProfilesController < ApplicationController
     end
 
     def seller
+        @items = current_seller.items
         render "seller"
     end
 
