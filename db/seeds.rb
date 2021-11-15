@@ -12,11 +12,17 @@
 puts "DEBUG: Cleaning up all the databases"
 
 Buyer.delete_all
+ActiveRecord::Base.connection.reset_pk_sequence!('Buyer')
 Seller.delete_all
+ActiveRecord::Base.connection.reset_pk_sequence!('Seller')
 Cart.delete_all
+ActiveRecord::Base.connection.reset_pk_sequence!('Cart')
 Item.delete_all
+ActiveRecord::Base.connection.reset_pk_sequence!('Item')
 Order.delete_all
+ActiveRecord::Base.connection.reset_pk_sequence!('Order')
 Rating.delete_all
+ActiveRecord::Base.connection.reset_pk_sequence!('Rating')
 
 #################################
 # Creating 100 Buyers
