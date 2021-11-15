@@ -8,4 +8,11 @@
     <p><b>Email: </b><%= current_seller.email %></p>
 </div>
 
+<div class="jumbotron">
+    <h2>Items Created</h2>
+    <% @items.each do |item| %>
+      <p><%= link_to item.name, "/items/#{item.id}" %></p>
+    <% end %>
+</div>
+
 <hr>
