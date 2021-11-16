@@ -41,15 +41,16 @@
           </http>
         </request>
 
-        <request>
-          <dyn_variable name="authenticity_token"></dyn_variable>
-          <http method="GET" url="/"></http>
-        </request>
-        <setdynvars code='fun({Pid,DynVars})->{ok,Val}=ts_dynvars:lookup(authenticity_token,DynVars),re:replace(Val,"[+]","%2B",[global,{return,list}]) end.' sourcetype="eval"> <var name="authenticity_token" /> </setdynvars>
-
         <request subst="true">
           <http url="/cart/300" version="1.1" method="POST"
-            contents="authenticity_token=%%_authenticity_token%%&amp;hello=%%_authenticity_token%%"
+            contents="authenticity_token=%%_authenticity_token%%"
+            content_type="application/x-www-form-urlencoded">
+          </http>
+        </request>
+
+        <request subst="true">
+          <http url="/cart/299" version="1.1" method="POST"
+            contents="authenticity_token=%%_authenticity_token%%"
             content_type="application/x-www-form-urlencoded">
           </http>
         </request>
@@ -69,10 +70,21 @@
         </request>
 
         <!--request>
-          <http method="DELETE" url="/buyers/sign_out"
-          contents="authenticity_token=%%_authenticity_token%%&amp;
-            heo=%%_authenticity_token%%"
-          content_type="application/x-www-form-urlencoded">
+          <dyn_variable name="mytoken" 
+              re="&lt;meta name=&quot;csrf-token&quot; content=&quot;(.*)&quot; /&gt;" 
+              decode="html_entities"/>
+          <http method="GET" url="/"></http>
+        </request-->
+        <!--request>
+          <dyn_variable name="authenticity_token" decode="html_entities"></dyn_variable>
+          <http method="GET" url="/"></http>
+        </request>
+        <setdynvars code='fun({Pid,DynVars})->{ok,Val}=ts_dynvars:lookup(authenticity_token,DynVars),re:replace(Val,"[+]","%2B",[global,{return,list}]) end.' sourcetype="eval"> <var name="authenticity_token" /> </setdynvars>
+
+        <request>
+          <http url="/buyers/sign_out" version="1.1" method="DELETE"
+            contents="authenticity_token=%%_authenticity_token%%&amp;
+            hello=%%_authenticity_token%%">
           </http>
         </request-->
         
