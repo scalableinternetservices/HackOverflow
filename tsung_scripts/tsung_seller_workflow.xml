@@ -96,9 +96,9 @@
           <http method="GET" url="/"></http>
         </request> 
 
-        <request>
+        <!-- <request>
           <http method="DELETE" url="/sellers/sign_out"></http>
-        </request> 
+        </request>  -->
 
       </transaction>
 
