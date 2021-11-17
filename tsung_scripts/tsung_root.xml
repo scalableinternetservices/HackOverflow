@@ -50,8 +50,6 @@
   <sessions>
     <session name="example" type="ts_http" weight="1">
       <request><http method="GET" url="/"></http></request>
-      <!--<request><http method="GET" url="/schedule/"></http></request>
-      <request><http method="GET" url="/project/"></http></request>-->
     </session>
   </sessions>
 </tsung>

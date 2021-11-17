@@ -1,5 +1,6 @@
 class CartController < ApplicationController
   before_action :authenticate_buyer!
+  skip_before_action :verify_authenticity_token, only: [:additem]
 
   def showcart
 
