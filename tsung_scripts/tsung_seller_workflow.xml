@@ -1,0 +1,107 @@
+<?xml version="1.0"?>
+<!DOCTYPE tsung SYSTEM "/usr/local/tsung/tsung-1.0.dtd" [] >
+<tsung loglevel="notice">
+  <clients>
+    <client host="localhost" maxusers="32768" use_controller_vm="true" />
+  </clients>
+
+  <servers>
+    <server host="localhost" port="3000" type="tcp"></server>
+  </servers>
+
+  <!-- <load>
+    <arrivalphase phase="1" duration="5" unit="second">
+      <users arrivalrate="1" unit="second"></users>
+    </arrivalphase>
+    <arrivalphase phase="2" duration="5" unit="second">
+      <users arrivalrate="2" unit="second"></users>
+    </arrivalphase>
+    <arrivalphase phase="3" duration="5" unit="second">
+      <users arrivalrate="4" unit="second"></users>
+    </arrivalphase>
+  </load> -->
+
+  <load>
+    <arrivalphase phase="1" duration="1" unit="second">
+      <users arrivalrate="1" unit="second"></users>
+    </arrivalphase>
+  </load>
+
+  <options>
+    <!-- Set connection timeout to 5 seconds -->
+    <option name="global_ack_timeout" value="5000"></option>
+  </options>
+
+  <sessions>
+    <session name="seller_workflow" type="ts_http" weight="1">
+
+      <transaction name="seller_flow">
+        
+        <request>
+          <dyn_variable name="authenticity_token"></dyn_variable>
+          <http method="GET" url="/sellers/sign_in"></http>
+        </request>
+
+        <setdynvars code='fun({Pid,DynVars})->{ok,Val}=ts_dynvars:lookup(authenticity_token,DynVars),re:replace(Val,"[+]","%2B",[global,{return,list}]) end.' sourcetype="eval"> <var name="authenticity_token" /> </setdynvars>
+
+        <request subst="true">
+          <http url="/sellers/sign_in" version="1.1" method="POST"
+            contents="seller[email]=ab@gmail.com&amp;authenticity_token=%%_authenticity_token%%&amp;
+                      seller[password]=111111&amp;commit=Log+in"
+            content_type="application/x-www-form-urlencoded">
+          </http>
+        </request>
+
+        <thinktime value='2' random='true'/>
+
+        <request>
+          <http method="GET" url="/profile/seller"></http>
+        </request> 
+
+
+        <request>
+          <dyn_variable name="authenticity_token"></dyn_variable>
+          <http method="GET" url="/items/new"></http>
+        </request>
+
+        <setdynvars sourcetype="random_number" start="1" end="100000">
+          <var name="uid_prefix"/>
+        </setdynvars>
+
+        <thinktime value='1' random='true'/>
+
+        <request subst="true">
+          <http url="/items" version="1.1" method="POST"
+            contents="item[name]=Tsung_test_%%_uid_prefix%%&amp;authenticity_token=%%_authenticity_token%%&amp;
+                      item[description]=Tsung_test_description_for_%%_uid_prefix%%&amp;item[price]=1000&amp;commit=Register+Product"
+            content_type="application/x-www-form-urlencoded">
+          </http>
+        </request>
+
+        <thinktime value='1' random='true'/>
+
+         <request>
+          <http method="GET" url="/"></http>
+        </request> 
+
+
+        <thinktime value='1' random='true'/>
+        <request>
+          <http method="GET" url="/profile/seller"></http>
+        </request> 
+
+
+        <request>
+          <dyn_variable name="authenticity_token"></dyn_variable>
+          <http method="GET" url="/"></http>
+        </request> 
+
+        <request>
+          <http method="DELETE" url="/sellers/sign_out"></http>
+        </request> 
+
+      </transaction>
+
+    </session>
+  </sessions>
+</tsung>
