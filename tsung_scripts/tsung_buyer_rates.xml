@@ -1,0 +1,68 @@
+<?xml version="1.0"?>
+<!DOCTYPE tsung SYSTEM "/usr/local/share/tsung/tsung-1.0.dtd" [] >
+<tsung loglevel="notice">
+  <clients>
+    <client host="localhost" maxusers="32768" use_controller_vm="true" />
+  </clients>
+
+  <servers>
+    <server host="localhost" port="3000" type="tcp"></server>
+  </servers>
+
+    <arrivalphase phase="1" duration="1" unit="second">
+  <load>
+      <users arrivalrate="1" unit="second"></users>
+    </arrivalphase>
+  </load>
+
+  <options>
+    <!-- Set connection timeout to 2 seconds -->
+    <option name="global_ack_timeout" value="3000"></option>
+  </options>
+
+  <sessions>
+    <session name="buyer_rates" type="ts_http" weight="1">
+
+      <transaction name="login">
+        
+        <request>
+          <dyn_variable name="authenticity_token"></dyn_variable>
+          <http method="GET" url="/buyers/sign_in"></http>
+        </request>
+        <!--thinktime value="1" random="true"></thinktime-->
+        <setdynvars code='fun({Pid,DynVars})->{ok,Val}=ts_dynvars:lookup(authenticity_token,DynVars),re:replace(Val,"[+]","%2B",[global,{return,list}]) end.' sourcetype="eval"> <var name="authenticity_token" /> </setdynvars>
+
+        <request subst="true">
+          <http url="/buyers/sign_in" version="1.1" method="POST"
+            contents="buyer[email]=shubham_buyer@ekirana.com&amp;authenticity_token=%%_authenticity_token%%&amp;
+                      buyer[password]=ekirana&amp;commit=Log+in"
+            content_type="application/x-www-form-urlencoded">
+          </http>
+        </request>
+
+        <request subst="true">
+          <http url="/orders" version="1.1" method="GET"
+            contents="authenticity_token=%%_authenticity_token%%"
+            content_type="application/x-www-form-urlencoded">
+          </http>
+        </request>
+
+        <request subst="true">
+          <http url="/ratings/1" version="1.1" method="POST"
+            contents="stars=5&amp;authenticity_token=%%_authenticity_token%%&amp;
+                      comment=Bad+Product&amp;commit=Submit+This+Rating"
+            content_type="application/x-www-form-urlencoded">
+          </http>
+        </request>
+
+        <request subst="true">
+          <http url="/orders" version="1.1" method="GET"
+            contents="authenticity_token=%%_authenticity_token%%"
+            content_type="application/x-www-form-urlencoded">
+          </http>
+        </request>
+      </transaction>
+
+    </session>
+  </sessions>
+</tsung>
