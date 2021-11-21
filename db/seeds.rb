@@ -45,8 +45,8 @@ end
 #################################
 # Creating 300 Items
 #################################
-puts "DEBUG: Creating 300 Items. Creating with random seller ids."
+puts "DEBUG: Creating 1000 Items. Creating with random seller ids. Might take a while..."
 
-for i in 1..300 do
+for i in 1..1000 do
   Item.create!(name: "Item_#{i}", description: "Half a league, half a league, half a league onward. All in the valley of Death. Rode the six hundred... Into the valley o death, rode the six hundred.", price: rand(0..2000), seller_id: rand(1..10))
 end
