@@ -10,6 +10,7 @@
 <% logged = true %>
 <% end %>
 
+<%= will_paginate %>
 <% @items.each do |item| %>
 	<div class="jumbotron ">
 		<h2><%= link_to item.name, "/items/#{item.id}" %></h2>
@@ -23,3 +24,4 @@
 	</div>
 	<hr>
 <% end %>
+<%= will_paginate %>
