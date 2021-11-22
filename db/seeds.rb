@@ -37,7 +37,7 @@ puts "DEBUG: X is set to #{X}"
 puts "DEBUG: Creating #{X/3} Buyers"
 
 for i in 1..X/3 do
-  Buyer.create!(email: "buyer_#{i}@example.com", password: "BuyerP@$$wor6", password_confirmation: "BuyerP@$$wor6")
+  Buyer.create!(email: "buyer#{i}@example.com", password: "password", password_confirmation: "password")
 end
 
 #################################
@@ -46,7 +46,7 @@ end
 puts "DEBUG: Creating #{X/4} Sellers"
 
 for i in 1..X/4 do
-  Seller.create!(email: "seller_#{i}@example.com", password: "SellerP@$$wor6", password_confirmation: "SellerP@$$wor6")
+  Seller.create!(email: "seller#{i}@example.com", password: "password", password_confirmation: "password")
 end
 
 #################################
