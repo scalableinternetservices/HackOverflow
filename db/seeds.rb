@@ -25,28 +25,35 @@ Rating.delete_all
 ActiveRecord::Base.connection.reset_pk_sequence!('ratings')
 
 #################################
-# Creating 100 Buyers
+# Set X
 #################################
-puts "DEBUG: Creating 100 Buyers"
 
-for i in 1..100 do
+X = 1000
+puts "DEBUG: X is set to #{X}"
+
+#################################
+# Creating X/3 Buyers
+#################################
+puts "DEBUG: Creating #{X/3} Buyers"
+
+for i in 1..X/3 do
   Buyer.create!(email: "buyer_#{i}@example.com", password: "BuyerP@$$wor6", password_confirmation: "BuyerP@$$wor6")
 end
 
 #################################
-# Creating 10 Sellers
+# Creating X/4 Sellers
 #################################
-puts "DEBUG: Creating 10 Sellers"
+puts "DEBUG: Creating #{X/4} Sellers"
 
-for i in 1..10 do
+for i in 1..X/4 do
   Seller.create!(email: "seller_#{i}@example.com", password: "SellerP@$$wor6", password_confirmation: "SellerP@$$wor6")
 end
 
 #################################
-# Creating 300 Items
+# Creating X Items
 #################################
-puts "DEBUG: Creating 1000 Items. Creating with random seller ids. Might take a while..."
+puts "DEBUG: Creating #{X} Items. Creating with random seller ids. Might take a while..."
 
-for i in 1..1000 do
-  Item.create!(name: "Item_#{i}", description: "Half a league, half a league, half a league onward. All in the valley of Death. Rode the six hundred... Into the valley o death, rode the six hundred.", price: rand(0..2000), seller_id: rand(1..10))
+for i in 1..X do
+  Item.create!(name: "Item_#{i}", description: "Half a league, half a league, half a league onward. All in the valley of Death. Rode the six hundred... Into the valley o death, rode the six hundred.", price: rand(0..2000), seller_id: rand(1..X/4))
 end
