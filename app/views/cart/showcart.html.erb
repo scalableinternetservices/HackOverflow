@@ -9,6 +9,7 @@
 
 <% item_ids = [] %>
 <%= form_with url: "/orderplaced", method: :post do |f| %>
+  <%= will_paginate @carts %>
   <% @carts.each do |cart| %>
     <% item_ids << cart.item.id %>
     <div class="jumbotron" id ="item_<%= cart.item.id %>">
@@ -21,14 +22,15 @@
               class: "quantity", id: "quantity_#{cart.item.id}",
                   onchange: "changeQuantity(this);"%>
       <br/>
-      <%= link_to "/cart/#{cart.item.id}", class: "btn btn-default btn-number", 
+      <%= link_to "/cart/#{cart.item.id}", class: "btn btn-default btn-number",
               id: "delete_#{cart.item.id}", method: :delete, :onclick => 'notcalled(event, this);' do %>
             <span class="glyphicon glyphicon-remove"></span> Delete
       <% end %>
     </div>
     <br>
   <% end %>
-  
+  <%= will_paginate @carts %>
+
 
   <% if false %>
     <div class="address" id="address_div">
@@ -47,7 +49,7 @@
       <% end %>
     </div>
   <% end %>
-  
+
 
   <% ids = item_ids.join(',') %>
   <%= hidden_field_tag "requestparam"%>

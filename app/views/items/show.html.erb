@@ -10,6 +10,7 @@
     <p><b>Description: </b><%= @item.description %></p>
 	<p><span class="glyphicon glyphicon-star"></span><%= @overall_rating %>/5</p>
 	<h1>Buyer Ratings</h1>
+	<%= will_paginate @ratings %> <!-- SAI: I don't think this will work -->
 	<% @ratings.each do |rating| %>
 		<% rating.stars.times do %>
 			<span class="glyphicon glyphicon-star"></span>
@@ -20,5 +21,6 @@
 		<p><%= rating.comment %></p>
 		<hr>
 	<% end %>
+	<%= will_paginate @ratings %>
 </div>
 <hr>

@@ -10,9 +10,11 @@
 
 <div class="jumbotron">
     <h2>Items Created</h2>
+	<%= will_paginate @items %>
     <% @items.each do |item| %>
       <p><%= link_to item.name, "/items/#{item.id}" %></p>
     <% end %>
+	<%= will_paginate @items %>
 </div>
 
 <hr>
