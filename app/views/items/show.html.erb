@@ -11,6 +11,7 @@
 	<p><span class="glyphicon glyphicon-star"></span><%= @overall_rating %>/5</p>
 	<h1>Buyer Ratings</h1>
 	<!-- Don't use russian doll caching here. The key criterion is too complicated -->
+	<% cache(cache_key_for_item_ratings(@item)) do %>
 	<% @ratings.each do |rating| %>
 		<% cache(cache_key_for_rating(rating)) do %>
 			<% rating.stars.times do %>
@@ -22,6 +23,7 @@
 			<p><%= rating.comment %></p>
 			<hr>
 		<% end %>
+	<% end %>
 	<% end %>
 </div>
 <hr>
