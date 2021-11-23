@@ -10,18 +10,22 @@
 <% logged = true %>
 <% end %>
 
+<% cache(cache_key_for_item_list) do %>
 <%= will_paginate @items %> <!-- As the name of controller is home and not items, this variable is needed. If not no need -->
 <% @items.each do |item| %>
-	<div class="jumbotron ">
-		<h2><%= link_to item.name, "/items/#{item.id}" %></h2>
-		<p><small><%= item.description[0..49]+'...' %></small></p>
-		<p><b>Price: $</b><%= item.price %></p>
-		<% if logged %>
-			<%= button_to "Add to Cart", "/cart/#{item.id}", class: 'btn btn-warning' %>
-		<% else %>
-			<%= button_to "Sign in to add to Cart", "/", class: 'btn btn-danger disabled' %>
-		<% end %>
-	</div>
-	<hr>
+	<% cache(cache_key_for_item(item)) do %>
+		<div class="jumbotron ">
+			<h2><%= link_to item.name, "/items/#{item.id}" %></h2>
+			<p><small><%= item.description[0..49]+'...' %></small></p>
+			<p><b>Price: $</b><%= item.price %></p>
+			<% if logged %>
+				<%= button_to "Add to Cart", "/cart/#{item.id}", class: 'btn btn-warning' %>
+			<% else %>
+				<%= button_to "Sign in to add to Cart", "/", class: 'btn btn-danger disabled' %>
+			<% end %>
+		</div>
+		<hr>
+	<% end %>
 <% end %>
 <%= will_paginate @items %>
+<% end %>
