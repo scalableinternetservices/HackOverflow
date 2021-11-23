@@ -1,12 +1,11 @@
 class CartController < ApplicationController
   before_action :authenticate_buyer!
-  skip_before_action :verify_authenticity_token, only: [:additem]
 
   def showcart
 
 		items = Cart.where(buyer_id: current_buyer.id).order(:id)
 		@carts = items
-		
+
 		price = 0;
 		items.each do |cart|
 		  price += cart.item.price
@@ -19,7 +18,7 @@ class CartController < ApplicationController
 		item_ids = JSON.parse(params[:requestparam])
 		ActiveRecord::Base.transaction do
 		  item_ids["body"].each do |item|
-		    Order.create(:item_id => item['item_id'], :quantity => item['quantity'], 
+		    Order.create(:item_id => item['item_id'], :quantity => item['quantity'],
 					:buyer_id => current_buyer.id)
 		  end
 		  Cart.delete_all
