@@ -7,24 +7,10 @@ class ItemsController < ApplicationController
 
 	def show
 		@item = Item.find(params[:id])
-		@orders = @item.orders
-		@ratings = []
-		@stars = []
-		@orders.each do |order|
-			if !!(order.rating)
-				@ratings << order.rating
-				@stars << order.rating.stars
-			end
-		end
-
+		@ratings = @item.ratings.paginate(page: params[:page], per_page: 10)
 		# if more than one stars awarded, calculate avg
 		# else give a default 0 rating
-		if @stars.count > 0 
-			@overall_rating = @stars.sum / @stars.count
-		else
-			@overall_rating = 0
-		end
-		
+		@overall_rating = @ratings.count > 0 ? @ratings.sum(:stars).to_f / @ratings.count : 0.0
 		@overall_rating = @overall_rating.round(1) # Rounding it to 1 decimal point
 	end
 
