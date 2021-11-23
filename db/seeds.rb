@@ -25,35 +25,62 @@ Rating.delete_all
 ActiveRecord::Base.connection.reset_pk_sequence!('ratings')
 
 #################################
-# Set X
+# Creating 100 Buyers
 #################################
+puts "DEBUG: Creating 100 Buyers"
 
-X = 1000
-puts "DEBUG: X is set to #{X}"
-
-#################################
-# Creating X/3 Buyers
-#################################
-puts "DEBUG: Creating #{X/3} Buyers"
-
-for i in 1..X/3 do
+for i in 1..100 do
   Buyer.create!(email: "buyer#{i}@example.com", password: "password", password_confirmation: "password")
 end
 
 #################################
-# Creating X/4 Sellers
+# Creating 100 Sellers
 #################################
-puts "DEBUG: Creating #{X/4} Sellers"
+puts "DEBUG: Creating 100 Sellers"
 
-for i in 1..X/4 do
+for i in 1..100 do
   Seller.create!(email: "seller#{i}@example.com", password: "password", password_confirmation: "password")
 end
 
 #################################
-# Creating X Items
+# Creating 10,000 Items
 #################################
-puts "DEBUG: Creating #{X} Items. Creating with random seller ids. Might take a while..."
+puts "DEBUG: Creating 10,000 Items. Creating with random seller ids. Might take a while..."
 
-for i in 1..X do
-  Item.create!(name: "Item_#{i}", description: "Half a league, half a league, half a league onward. All in the valley of Death. Rode the six hundred... Into the valley o death, rode the six hundred.", price: rand(0..2000), seller_id: rand(1..X/4))
+for i in 1..10000 do
+  Item.create!(name: "Item_#{i}", description: "Half a league, half a league, half a league onward. All in the valley of Death. Rode the six hundred... Into the valley o death, rode the six hundred.", price: rand(0..2000), seller_id: rand(1..5)) # Only 5 sellers are considered.
+end
+
+#################################
+# Creating 500 orders
+#################################
+
+puts "DEBUG: Creating 500 Orders. Creating for first 5 buyers"
+
+for i in 1..5 do
+	for j in 1..100 do
+		Order.create!(quantity: rand(1..6), item_id: rand(1..10000), rating_id: (((i-1)*100)+j), buyer_id: i)
+	end
+end
+
+#################################
+# Creating 500 Ratings
+#################################
+
+puts "DEBUG: Creating 500 Ratings. Creating for corresponding orders"
+
+for i in 1..500 do
+	Rating.create!(stars: rand(1..5), comment: "This is a comment", order_id: i)
+end
+
+#################################
+# Creating 500 Carts
+#################################
+
+puts "DEBUG: Creating 500 Carts. Creating for 5 buyers"
+
+for i in 1..5 do
+	for j in 1..100 do
+		Rating.create!(item_id: rand(1..10000), buyer_id: i)
+	end
 end
