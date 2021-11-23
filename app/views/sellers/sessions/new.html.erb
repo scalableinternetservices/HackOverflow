@@ -1,8 +1,11 @@
+<% provide(:title, "Seller Sign-In") %>
+
 <% if notice %><div class="alert alert-info" id="notice"><%= notice %></div><% end %>
 <% if alert %><div class="alert alert-warning" id="alert"><%= alert %></div><% end %>
 
 <h2>Log in</h2>
 
+<% cache(cache_key_for_seller_login) %>
 <%= form_for(resource, as: resource_name, url: session_path(resource_name)) do |f| %>
   <div class="field">
     <%= f.label :email %><br />
@@ -24,6 +27,7 @@
   <div class="actions">
     <%= f.submit "Log in" %>
   </div>
+<% end %>
 <% end %>
 
 <%= render "sellers/shared/links" %>

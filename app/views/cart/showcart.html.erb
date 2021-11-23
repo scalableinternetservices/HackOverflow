@@ -9,45 +9,31 @@
 
 <% item_ids = [] %>
 <%= form_with url: "/orderplaced", method: :post do |f| %>
-  <% @carts.each do |cart| %>
-    <% item_ids << cart.item.id %>
-    <div class="jumbotron" id ="item_<%= cart.item.id %>">
-      <h2><%= link_to cart.item.name, "/items/#{cart.item.id}" %></h2>
-      <p><b>Description:</b><%= cart.item.description[0..49]+'...' %></p>
-      <p id= <%= "price_#{cart.item.id}"%> hidden><b>Price: $</b><%= cart.item.price %></p>
-      <p id= <%= "cost_#{cart.item.id}"%>><b>Cost: $</b><%= cart.item.price %></p>
-      <p><b>Quantity:</b></p>
-      <%= select_tag "quantity", options_for_select(1..10),
-              class: "quantity", id: "quantity_#{cart.item.id}",
-                  onchange: "changeQuantity(this);"%>
-      <br/>
-      <%= link_to "/cart/#{cart.item.id}", class: "btn btn-default btn-number", 
-              id: "delete_#{cart.item.id}", method: :delete, :onclick => 'notcalled(event, this);' do %>
-            <span class="glyphicon glyphicon-remove"></span> Delete
-      <% end %>
-    </div>
-    <br>
+  <% cache(cache_key_for_buyer_cart(current_buyer)) do %>
+	  <% @carts.each do |cart| %>
+	    <% item_ids << cart.item.id %>
+		<% cache(cache_key_for_cart(cart)) do %>
+		    <div class="jumbotron" id ="item_<%= cart.item.id %>">
+		      <h2><%= link_to cart.item.name, "/items/#{cart.item.id}" %></h2>
+		      <p><b>Description:</b><%= cart.item.description[0..49]+'...' %></p>
+		      <p id= <%= "price_#{cart.item.id}"%> hidden><b>Price: $</b><%= cart.item.price %></p>
+		      <p id= <%= "cost_#{cart.item.id}"%>><b>Cost: $</b><%= cart.item.price %></p>
+		      <p><b>Quantity:</b></p>
+		      <%= select_tag "quantity", options_for_select(1..10),
+		              class: "quantity", id: "quantity_#{cart.item.id}",
+		                  onchange: "changeQuantity(this);"%>
+		      <br/>
+		      <%= link_to "/cart/#{cart.item.id}", class: "btn btn-default btn-number",
+		              id: "delete_#{cart.item.id}", method: :delete, :onclick => 'notcalled(event, this);' do %>
+		            <span class="glyphicon glyphicon-remove"></span> Delete
+		      <% end %>
+		    </div>
+		<% end %>
+	    <br>
+	  <% end %>
   <% end %>
-  
 
-  <% if false %>
-    <div class="address" id="address_div">
-      <h4>Shipping Address</h4>
-      <% if !@addresses.empty? %>
-        <% @addresses.each do |address| %>
-          <div>
-          <%= f.radio_button :address, "#{address.id}", :checked => true%>
-          <%= f.label :address, address.street_address+", "+address.city+", "+
-              address.state+" "+address.zipcode %>
-          </div>
-        <% end %>
-      <% end %>
-      <% if @addresses.empty? %>
-          <div>Please add a delivery address and proceed</div>
-      <% end %>
-    </div>
-  <% end %>
-  
+  <!-- Removed unnecessary if condition -->
 
   <% ids = item_ids.join(',') %>
   <%= hidden_field_tag "requestparam"%>

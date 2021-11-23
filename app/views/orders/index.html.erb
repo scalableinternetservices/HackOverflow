@@ -4,17 +4,21 @@
 <% if alert %><div class="alert alert-warning" id="alert"><%= alert %></div><% end %>
 
 <h1>Orders Placed</h1>
-<% @orders.each do |order| %>
-	<div class="jumbotron">
-		<h2><%= link_to order.item.name, "/items/#{order.item.id}" %></h2>
-		<p><small><%= order.item.description[0..49]+'...' %></small></p>
-		<p><b>Price: $</b><%= order.item.price %></p>
-		<p><b>Quantity:</b><%= order.quantity %></p>
-		<% if !!order.rating %>
-			<p>Yay! You already rated this item. Thank you for your rating</p>
-		<% else %>
-			<%= link_to 'Rate This Order', new_rating_path(:order_id => order.id), class: "btn btn-primary" %>
+<% cache(cache_key_for_buyer_orders(current_buyer)) do %>
+	<% @orders.each do |order| %>
+		<% cache(cache_key_for_order(order)) do %>
+			<div class="jumbotron">
+				<h2><%= link_to order.item.name, "/items/#{order.item.id}" %></h2>
+				<p><small><%= order.item.description[0..49]+'...' %></small></p>
+				<p><b>Price: $</b><%= order.item.price %></p>
+				<p><b>Quantity:</b><%= order.quantity %></p>
+				<% if !!order.rating %>
+					<p>Yay! You already rated this item. Thank you for your rating</p>
+				<% else %>
+					<%= link_to 'Rate This Order', new_rating_path(:order_id => order.id), class: "btn btn-primary" %>
+				<% end %>
+			</div>
+			<hr>
 		<% end %>
-	</div>
-	<hr>
+	<% end %>
 <% end %>

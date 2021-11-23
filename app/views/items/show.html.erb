@@ -10,15 +10,18 @@
     <p><b>Description: </b><%= @item.description %></p>
 	<p><span class="glyphicon glyphicon-star"></span><%= @overall_rating %>/5</p>
 	<h1>Buyer Ratings</h1>
+	<!-- Don't use russian doll caching here. The key criterion is too complicated -->
 	<% @ratings.each do |rating| %>
-		<% rating.stars.times do %>
-			<span class="glyphicon glyphicon-star"></span>
+		<% cache(cache_key_for_rating(rating)) do %>
+			<% rating.stars.times do %>
+				<span class="glyphicon glyphicon-star"></span>
+			<% end %>
+			<% rating.blank_stars.times do %>
+				<span class="glyphicon glyphicon-star-empty"></span>
+			<% end %>
+			<p><%= rating.comment %></p>
+			<hr>
 		<% end %>
-		<% rating.blank_stars.times do %>
-			<span class="glyphicon glyphicon-star-empty"></span>
-		<% end %>
-		<p><%= rating.comment %></p>
-		<hr>
 	<% end %>
 </div>
 <hr>

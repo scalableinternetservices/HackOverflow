@@ -10,9 +10,13 @@
 
 <div class="jumbotron">
     <h2>Items Created</h2>
-    <% @items.each do |item| %>
-      <p><%= link_to item.name, "/items/#{item.id}" %></p>
-    <% end %>
+	<% cache(cache_key_for_seller_items(current_seller)) do %>
+	    <% @items.each do |item| %>
+		  <% cache(cache_key_for_seller_item(item)) do %>
+	      	<p><%= link_to item.name, "/items/#{item.id}" %></p>
+		  <% end %>
+	    <% end %>
+	<% end %>
 </div>
 
 <hr>
