@@ -59,7 +59,7 @@ puts "DEBUG: Creating 500 Orders. Creating for first 5 buyers"
 
 for i in 1..5 do
 	for j in 1..100 do
-		Order.create!(quantity: rand(1..6), item_id: rand(1..10000), rating_id: (((i-1)*100)+j), buyer_id: i)
+		Order.create!(quantity: rand(1..6), item_id: i, rating_id: (((i-1)*100)+j), buyer_id: i)
 	end
 end
 
