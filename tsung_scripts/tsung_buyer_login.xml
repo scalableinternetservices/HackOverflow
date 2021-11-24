@@ -59,8 +59,8 @@
 
         <request subst="true">
           <http url="/buyers/sign_in" version="1.1" method="POST"
-            contents="buyer[email]=buyer_1@example.com&amp;authenticity_token=%%_authenticity_token%%&amp;
-                      buyer[password]=BuyerP@$$wor6&amp;commit=Log+in"
+            contents="buyer[email]=buyer1@example.com&amp;authenticity_token=%%_authenticity_token%%&amp;
+                      buyer[password]=password&amp;commit=Log+in"
             content_type="application/x-www-form-urlencoded">
           </http>
         </request>
