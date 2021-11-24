@@ -3,7 +3,7 @@ class CartController < ApplicationController
 
   def showcart
 
-		items = Cart.where(buyer_id: current_buyer.id).order(:id)
+		items = Cart.where(buyer_id: current_buyer.id).includes(:item).order(:id)
 		@carts = items
 
 		price = 0;
