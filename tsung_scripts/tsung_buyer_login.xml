@@ -7,34 +7,37 @@
 
   <servers>
     <!--server host="localhost" port="3000" type="tcp"></server-->
-    <server host="sharath.eba-fbpd2mid.us-west-2.elasticbeanstalk.com" port="80" type="tcp"></server>
+    <server host="arjun.eba-fbpd2mid.us-west-2.elasticbeanstalk.com" port="80" type="tcp"></server>
     <!--server host="arjun.eba-fbpd2mid.us-west-2.elasticbeanstalk.com" port="80" type="tcp"></server-->
   </servers>
 
   <load>
-    <arrivalphase phase="1" duration="10" unit="second">
-      <users arrivalrate="1" unit="second"></users>
-    </arrivalphase>
-    <arrivalphase phase="2" duration="10" unit="second">
+    <arrivalphase phase="1" duration="60" unit="second">
       <users arrivalrate="2" unit="second"></users>
     </arrivalphase>
-    <arrivalphase phase="3" duration="10" unit="second">
+    <arrivalphase phase="2" duration="60" unit="second">
       <users arrivalrate="4" unit="second"></users>
     </arrivalphase>
-    <arrivalphase phase="4" duration="10" unit="second">
+    <arrivalphase phase="3" duration="60" unit="second">
       <users arrivalrate="8" unit="second"></users>
     </arrivalphase>
-    <arrivalphase phase="5" duration="10" unit="second">
+    <arrivalphase phase="4" duration="60" unit="second">
       <users arrivalrate="16" unit="second"></users>
     </arrivalphase>
-    <arrivalphase phase="6" duration="10" unit="second">
+    <arrivalphase phase="5" duration="60" unit="second">
       <users arrivalrate="32" unit="second"></users>
+    </arrivalphase>
+    <arrivalphase phase="6" duration="60" unit="second">
+      <users arrivalrate="64" unit="second"></users>
+    </arrivalphase>
+    <arrivalphase phase="7" duration="60" unit="second">
+      <users arrivalrate="128" unit="second"></users>
     </arrivalphase>
   </load>
 
   <options>
     <!-- Set connection timeout to 2 seconds -->
-    <option name="global_ack_timeout" value="3000"></option>
+    <option name="global_ack_timeout" value="30000"></option>
   </options>
 
   <sessions>
@@ -56,8 +59,8 @@
 
         <request subst="true">
           <http url="/buyers/sign_in" version="1.1" method="POST"
-            contents="buyer[email]=buyer1@example.com&amp;authenticity_token=%%_authenticity_token%%&amp;
-                      buyer[password]=password&amp;commit=Log+in"
+            contents="buyer[email]=buyer_1@example.com&amp;authenticity_token=%%_authenticity_token%%&amp;
+                      buyer[password]=BuyerP@$$wor6&amp;commit=Log+in"
             content_type="application/x-www-form-urlencoded">
           </http>
         </request>
@@ -89,24 +92,6 @@
             content_type="application/x-www-form-urlencoded">
           </http>
         </request>
-
-        <!--request>
-          <dyn_variable name="mytoken" 
-              re="&lt;meta name=&quot;csrf-token&quot; content=&quot;(.*)&quot; /&gt;" 
-              decode="html_entities"/>
-          <http method="GET" url="/"></http>
-        </request-->
-        <!--request>
-          <dyn_variable name="authenticity_token" decode="html_entities"></dyn_variable>
-          <http method="GET" url="/"></http>
-        </request>
-        <setdynvars code='fun({Pid,DynVars})->{ok,Val}=ts_dynvars:lookup(authenticity_token,DynVars),re:replace(Val,"[+]","%2B",[global,{return,list}]) end.' sourcetype="eval"> <var name="authenticity_token" /> </setdynvars>
-        
-        <request>
-          <http url="/buyers/sign_out" version="1.1" method="DELETE">
-          </http>
-        </request>
-        -->
         
       </transaction>
 

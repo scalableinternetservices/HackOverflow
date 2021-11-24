@@ -30,13 +30,14 @@ class CartController < ApplicationController
   def additem
   	item_id = params[:id]
 
-  	buyer_id = current_buyer.id
-
-  	if Cart.find_by_item_id(item_id)
+  	#buyer_id = current_buyer.id
+	item_exist = Cart.where(item_id: item_id, buyer_id: current_buyer.id)
+  	#if Cart.find_by_item_id(item_id)
+	if !item_exist.empty?
   		redirect_to root_path, notice: "Item already exists in the Cart"
   		return
   	end
-  	@cart = Cart.new(item_id: item_id, buyer_id: buyer_id)
+  	@cart = Cart.new(item_id: item_id, buyer_id: current_buyer.id)
   	if @cart.save
 			redirect_to root_path, notice: "Item succesfully added to the Cart"
 		else
@@ -46,8 +47,10 @@ class CartController < ApplicationController
 
   def deleteitem
 	item_id = params[:id]
-	if Cart.find_by_item_id(item_id)
-		Cart.find_by_item_id(item_id).destroy
+	#if Cart.find_by_item_id(item_id)
+	item_exist = Cart.where(item_id: item_id, buyer_id: current_buyer.id)
+	if !item_exist.empty?
+		Cart.where(item_id: item_id, buyer_id: current_buyer.id).destroy_all
 		item = Item.find(item_id)
 		redirect_to showcart_path, notice: item.name+ " removed from the Cart"
 	end
