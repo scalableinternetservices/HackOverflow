@@ -10,6 +10,7 @@
 
 <div class="jumbotron">
     <h2>Items Created</h2>
+  <%= will_paginate @items %>
 	<% cache(cache_key_for_seller_items(current_seller)) do %>
 	    <% @items.each do |item| %>
 		  <% cache(cache_key_for_seller_item(item)) do %>
@@ -17,6 +18,7 @@
 		  <% end %>
 	    <% end %>
 	<% end %>
+  <%= will_paginate @items %>
 </div>
 
 <hr>

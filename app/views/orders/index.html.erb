@@ -4,6 +4,7 @@
 <% if alert %><div class="alert alert-warning" id="alert"><%= alert %></div><% end %>
 
 <h1>Orders Placed</h1>
+<%= will_paginate @orders %>
 <% cache(cache_key_for_buyer_orders(current_buyer)) do %>
 	<% @orders.each do |order| %>
 		<% cache(cache_key_for_order(order)) do %>
@@ -19,6 +20,4 @@
 				<% end %>
 			</div>
 			<hr>
-		<% end %>
-	<% end %>
-<% end %>
+<%= will_paginate @orders %>

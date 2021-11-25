@@ -7,11 +7,11 @@ class ItemsController < ApplicationController
 
 	def show
 		@item = Item.find(params[:id])
-		@ratings = @item.ratings
+		@ratings = @item.ratings.paginate(page: params[:page], per_page: 10)
 		# if more than one stars awarded, calculate avg
 		# else give a default 0 rating
 		@overall_rating = @ratings.count > 0 ? @ratings.sum(:stars).to_f / @ratings.count : 0.0
-		@overall_rating = @overall_rating.round(1) # Rounding it to 1 decimal point
+    @overall_rating = @overall_rating.round(1) # Rounding it to 1 decimal point
 	end
 
 	def create

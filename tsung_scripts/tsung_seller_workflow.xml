@@ -1,41 +1,45 @@
 <?xml version="1.0"?>
-<!DOCTYPE tsung SYSTEM "/usr/local/tsung/tsung-1.0.dtd" [] >
+<!DOCTYPE tsung SYSTEM "/usr/local/share/tsung/tsung-1.0.dtd" [] >
 <tsung loglevel="notice">
   <clients>
     <client host="localhost" maxusers="32768" use_controller_vm="true" />
   </clients>
 
   <servers>
-    <server host="localhost" port="3000" type="tcp"></server>
+    <server host="sharath.eba-fbpd2mid.us-west-2.elasticbeanstalk.com" port="80" type="tcp"></server>
   </servers>
 
-  <!-- <load>
-    <arrivalphase phase="1" duration="5" unit="second">
-      <users arrivalrate="1" unit="second"></users>
-    </arrivalphase>
-    <arrivalphase phase="2" duration="5" unit="second">
+  <load>
+    <arrivalphase phase="1" duration="60" unit="second">
       <users arrivalrate="2" unit="second"></users>
     </arrivalphase>
-    <arrivalphase phase="3" duration="5" unit="second">
+    <arrivalphase phase="2" duration="60" unit="second">
       <users arrivalrate="4" unit="second"></users>
     </arrivalphase>
-  </load> -->
-
-  <load>
-    <arrivalphase phase="1" duration="1" unit="second">
-      <users arrivalrate="1" unit="second"></users>
+    <arrivalphase phase="3" duration="60" unit="second">
+      <users arrivalrate="8" unit="second"></users>
+    </arrivalphase>
+    <arrivalphase phase="4" duration="60" unit="second">
+      <users arrivalrate="16" unit="second"></users>
+    </arrivalphase>
+    <arrivalphase phase="5" duration="60" unit="second">
+      <users arrivalrate="32" unit="second"></users>
+    </arrivalphase>
+    <arrivalphase phase="6" duration="60" unit="second">
+      <users arrivalrate="64" unit="second"></users>
+    </arrivalphase>
+  <arrivalphase phase="7" duration="60" unit="second">
+      <users arrivalrate="128" unit="second"></users>
     </arrivalphase>
   </load>
 
   <options>
-    <!-- Set connection timeout to 5 seconds -->
-    <option name="global_ack_timeout" value="5000"></option>
+    <!-- Set connection timeout to 3 seconds -->
+    <option name="global_ack_timeout" value="3000"></option>
   </options>
 
   <sessions>
     <session name="seller_workflow" type="ts_http" weight="1">
-
-      <transaction name="seller_flow">
         
         <request>
           <dyn_variable name="authenticity_token"></dyn_variable>
@@ -46,8 +50,8 @@
 
         <request subst="true">
           <http url="/sellers/sign_in" version="1.1" method="POST"
-            contents="seller[email]=ab@gmail.com&amp;authenticity_token=%%_authenticity_token%%&amp;
-                      seller[password]=111111&amp;commit=Log+in"
+            contents="seller[email]=seller1@example.com&amp;authenticity_token=%%_authenticity_token%%&amp;
+                      seller[password]=password&amp;commit=Log+in"
             content_type="application/x-www-form-urlencoded">
           </http>
         </request>
@@ -64,16 +68,16 @@
           <http method="GET" url="/items/new"></http>
         </request>
 
-        <setdynvars sourcetype="random_number" start="1" end="100000">
+        <setdynvars sourcetype="random_number" start="1" end="10000">
           <var name="uid_prefix"/>
         </setdynvars>
 
-        <thinktime value='1' random='true'/>
+        <thinktime value='2' random='true'/>
 
         <request subst="true">
           <http url="/items" version="1.1" method="POST"
             contents="item[name]=Tsung_test_%%_uid_prefix%%&amp;authenticity_token=%%_authenticity_token%%&amp;
-                      item[description]=Tsung_test_description_for_%%_uid_prefix%%&amp;item[price]=1000&amp;commit=Register+Product"
+                      item[description]=Tsung_test_description_for_%%_uid_prefix%%&amp;item[price]=999&amp;commit=Register+Product"
             content_type="application/x-www-form-urlencoded">
           </http>
         </request>
@@ -88,19 +92,7 @@
         <thinktime value='1' random='true'/>
         <request>
           <http method="GET" url="/profile/seller"></http>
-        </request> 
-
-
-        <request>
-          <dyn_variable name="authenticity_token"></dyn_variable>
-          <http method="GET" url="/"></http>
-        </request> 
-
-        <!-- <request>
-          <http method="DELETE" url="/sellers/sign_out"></http>
-        </request>  -->
-
-      </transaction>
+        </request>
 
     </session>
   </sessions>

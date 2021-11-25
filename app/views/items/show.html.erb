@@ -11,6 +11,7 @@
 	<p><span class="glyphicon glyphicon-star"></span><%= @overall_rating %>/5</p>
 	<h1>Buyer Ratings</h1>
 	<!-- Don't use russian doll caching here. The key criterion is too complicated -->
+  <%= will_paginate @ratings %>
 	<% cache(cache_key_for_item_ratings(@item)) do %>
 	<% @ratings.each do |rating| %>
 		<% cache(cache_key_for_rating(rating)) do %>
@@ -25,5 +26,6 @@
 		<% end %>
 	<% end %>
 	<% end %>
+	<%= will_paginate @ratings %>
 </div>
 <hr>
