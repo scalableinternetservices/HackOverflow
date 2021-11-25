@@ -32,22 +32,19 @@
     </arrivalphase>
     <arrivalphase phase="7" duration="60" unit="second">
       <users arrivalrate="128" unit="second"></users>
-    </arrivalphase>
+    </arrivalphase>    
   </load>
 
   <options>
     <!-- Set connection timeout to 2 seconds -->
-    <option name="global_ack_timeout" value="30000"></option>
+    <option name="global_ack_timeout" value="3000"></option>
   </options>
 
   <sessions>
     <session name="buyer_login" type="ts_http" weight="1">
 
-      <transaction name="login">
-
-        
-        <setdynvars sourcetype="random_number" start="1" end="99">
-          <var name="rand"/>
+        <setdynvars sourcetype="random_number" start="1" end="100">
+          <var name="rand_buyer"/>
         </setdynvars>
         
         <request>
@@ -57,23 +54,36 @@
         <!--thinktime value="1" random="true"></thinktime-->
         <setdynvars code='fun({Pid,DynVars})->{ok,Val}=ts_dynvars:lookup(authenticity_token,DynVars),re:replace(Val,"[+]","%2B",[global,{return,list}]) end.' sourcetype="eval"> <var name="authenticity_token" /> </setdynvars>
 
+        <arrivalphase phase="7" duration="60" unit="second">
+          <users arrivalrate="64" unit="second"></users>
+        </arrivalphase>
+
         <request subst="true">
           <http url="/buyers/sign_in" version="1.1" method="POST"
-            contents="buyer[email]=buyer1@example.com&amp;authenticity_token=%%_authenticity_token%%&amp;
+            contents="buyer[email]=buyer%%_rand_buyer%%@example.com&amp;authenticity_token=%%_authenticity_token%%&amp;
                       buyer[password]=password&amp;commit=Log+in"
             content_type="application/x-www-form-urlencoded">
           </http>
         </request>
 
+
+        
+        <setdynvars sourcetype="random_number" start="5001" end="10000">
+          <var name="item_1"/>
+        </setdynvars>
+        <setdynvars sourcetype="random_number" start="5001" end="10000">
+          <var name="item_2"/>
+        </setdynvars>
+        
         <request subst="true">
-          <http url="/cart/300" version="1.1" method="POST"
+          <http url="/cart/%%_item_1%%" version="1.1" method="POST"
             contents="authenticity_token=%%_authenticity_token%%"
             content_type="application/x-www-form-urlencoded">
           </http>
         </request>
 
         <request subst="true">
-          <http url="/cart/299" version="1.1" method="POST"
+          <http url="/cart/%%_item_2%%" version="1.1" method="POST"
             contents="authenticity_token=%%_authenticity_token%%"
             content_type="application/x-www-form-urlencoded">
           </http>
@@ -92,9 +102,7 @@
             content_type="application/x-www-form-urlencoded">
           </http>
         </request>
-        
-      </transaction>
-
+      
     </session>
   </sessions>
 </tsung>
