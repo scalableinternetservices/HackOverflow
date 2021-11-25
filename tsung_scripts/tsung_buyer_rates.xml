@@ -6,12 +6,27 @@
   </clients>
 
   <servers>
-    <server host="arjun.eba-fbpd2mid.us-west-2.elasticbeanstalk.com" port="80" type="tcp"></server>
+    <server host="sharath.eba-fbpd2mid.us-west-2.elasticbeanstalk.com" port="80" type="tcp"></server>
   </servers>
 
   <load>
-    <arrivalphase phase="1" duration="1" unit="second">
+    <arrivalphase phase="1" duration="10" unit="second">
       <users arrivalrate="1" unit="second"></users>
+    </arrivalphase>
+    <arrivalphase phase="2" duration="10" unit="second">
+      <users arrivalrate="2" unit="second"></users>
+    </arrivalphase>
+    <arrivalphase phase="3" duration="10" unit="second">
+      <users arrivalrate="4" unit="second"></users>
+    </arrivalphase>
+    <arrivalphase phase="4" duration="10" unit="second">
+      <users arrivalrate="8" unit="second"></users>
+    </arrivalphase>
+    <arrivalphase phase="5" duration="10" unit="second">
+      <users arrivalrate="16" unit="second"></users>
+    </arrivalphase>
+    <arrivalphase phase="6" duration="10" unit="second">
+      <users arrivalrate="32" unit="second"></users>
     </arrivalphase>
   </load>
 
@@ -36,8 +51,8 @@
 
         <request subst="true">
           <http url="/buyers/sign_in" version="1.1" method="POST"
-            contents="buyer[email]=shubham_buyer@ekirana.com&amp;authenticity_token=%%_authenticity_token%%&amp;
-                      buyer[password]=ekirana&amp;commit=Log+in"
+            contents="buyer[email]=buyer1@example.com&amp;authenticity_token=%%_authenticity_token%%&amp;
+                      buyer[password]=password&amp;commit=Log+in"
             content_type="application/x-www-form-urlencoded">
           </http>
         </request>
