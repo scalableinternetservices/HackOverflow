@@ -9,6 +9,7 @@
 
 <% item_ids = [] %>
 <%= form_with url: "/orderplaced", method: :post do |f| %>
+  <%= will_paginate @carts %>
   <% @carts.each do |cart| %>
     <% item_ids << cart.item.id %>
     <div class="jumbotron" id ="item_<%= cart.item.id %>">
@@ -27,27 +28,8 @@
       <% end %>
     </div>
     <br>
-  <% end %>
-  
-
-  <% if false %>
-    <div class="address" id="address_div">
-      <h4>Shipping Address</h4>
-      <% if !@addresses.empty? %>
-        <% @addresses.each do |address| %>
-          <div>
-          <%= f.radio_button :address, "#{address.id}", :checked => true%>
-          <%= f.label :address, address.street_address+", "+address.city+", "+
-              address.state+" "+address.zipcode %>
-          </div>
-        <% end %>
-      <% end %>
-      <% if @addresses.empty? %>
-          <div>Please add a delivery address and proceed</div>
-      <% end %>
-    </div>
-  <% end %>
-  
+  <% end %> 
+  <%= will_paginate @carts %>
 
   <% ids = item_ids.join(',') %>
   <%= hidden_field_tag "requestparam"%>
