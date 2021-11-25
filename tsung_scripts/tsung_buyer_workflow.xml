@@ -41,7 +41,9 @@
   <sessions>
     <session name="buyer_login" type="ts_http" weight="1">
 
-      <transaction name="login">
+		<setdynvars sourcetype="random_number" start="1" end="5">
+			<var name="rand_buyer"/>
+		</setdynvars>
 
         <request>
           <dyn_variable name="authenticity_token"></dyn_variable>
@@ -52,13 +54,18 @@
 
         <request subst="true">
           <http url="/buyers/sign_in" version="1.1" method="POST"
-          contents="buyer[email]=buyer1@example.com&amp;authenticity_token=%%_authenticity_token%%&amp;
+          contents="buyer[email]=buyer%%_rand_buyer%%@example.com&amp;authenticity_token=%%_authenticity_token%%&amp;
                       buyer[password]=password&amp;commit=Log+in"
             content_type="application/x-www-form-urlencoded">
           </http>
         </request>
+
+		<setdynvars sourcetype="random_number" start="1" end="10000">
+          <var name="rand_item"/>
+        </setdynvars>
+
         <request subst ="true">
-        	<http url="/items/1" version="1.1" method="GET"
+        	<http url="/items/%%_rand_item%%" version="1.1" method="GET"
         		contents="authenticity_token=%%_authenticity_token%%"
         		content_type="application/x-www-form-urlencoded">
                </http>
@@ -66,7 +73,7 @@
         <thinktime value="5" random="true"></thinktime>
 
         <request subst="true">
-          <http url="/cart/1" version="1.1" method="POST"
+          <http url="/cart/%%_rand_item%%" version="1.1" method="POST"
             contents="authenticity_token=%%_authenticity_token%%"
             content_type="application/x-www-form-urlencoded">
           </http>
@@ -77,8 +84,6 @@
           <http method="GET" url="/showcart"></http>
         </request>
         <setdynvars code='fun({Pid,DynVars})->{ok,Val}=ts_dynvars:lookup(authenticity_token,DynVars),re:replace(Val,"[+]","%2B",[global,{return,list}]) end.' sourcetype="eval"> <var name="authenticity_token" /> </setdynvars>
-
-      </transaction>
 
     </session>
   </sessions>
