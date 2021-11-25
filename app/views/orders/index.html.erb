@@ -4,6 +4,7 @@
 <% if alert %><div class="alert alert-warning" id="alert"><%= alert %></div><% end %>
 
 <h1>Orders Placed</h1>
+<%= will_paginate @orders %>
 <% @orders.each do |order| %>
 	<div class="jumbotron">
 		<h2><%= link_to order.item.name, "/items/#{order.item.id}" %></h2>
@@ -18,3 +19,4 @@
 	</div>
 	<hr>
 <% end %>
+<%= will_paginate @orders %>

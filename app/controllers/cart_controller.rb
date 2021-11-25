@@ -4,7 +4,7 @@ class CartController < ApplicationController
   def showcart
 
 		items = Cart.where(buyer_id: current_buyer.id).order(:id)
-		@carts = items
+		@carts = items.paginate(page: params[:page], per_page: 10)
 
 		price = 0;
 		items.each do |cart|
