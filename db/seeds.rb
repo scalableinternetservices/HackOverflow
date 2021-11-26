@@ -59,18 +59,8 @@ puts "DEBUG: Creating 500 Orders. Creating for first 5 buyers"
 
 for i in 1..5 do
 	for j in 1..100 do
-		Order.create!(quantity: rand(1..6), item_id: i, rating_id: (((i-1)*100)+j), buyer_id: i)
+		Order.create!(quantity: rand(1..6), item_id: i, buyer_id: i)
 	end
-end
-
-#################################
-# Creating 500 Ratings
-#################################
-
-puts "DEBUG: Creating 500 Ratings. Creating for corresponding orders"
-
-for i in 1..500 do
-	Rating.create!(stars: rand(1..5), comment: "This is a comment", order_id: i)
 end
 
 #################################
@@ -81,6 +71,6 @@ puts "DEBUG: Creating 500 Carts. Creating for 5 buyers"
 
 for i in 1..5 do
 	for j in 1..100 do
-		Cart.create!(item_id: rand(1..10000), buyer_id: i)
+		Cart.create!(item_id: rand(1..5000), buyer_id: i)
 	end
 end

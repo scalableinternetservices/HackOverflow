@@ -11,7 +11,9 @@
 <% end %>
 
 <%= will_paginate @items %> <!-- As the name of controller is home and not items, this variable is needed. If not no need -->
+<% cache(cache_key_for_item_list) do %>
 <% @items.each do |item| %>
+	<% cache(cache_key_for_item(item)) do %>
 	<div class="jumbotron ">
 		<h2><%= link_to item.name, "/items/#{item.id}" %></h2>
 		<p><small><%= item.description[0..49]+'...' %></small></p>
@@ -23,5 +25,7 @@
 		<% end %>
 	</div>
 	<hr>
+	<% end %>
+<% end %>
 <% end %>
 <%= will_paginate @items %>

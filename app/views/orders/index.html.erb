@@ -4,7 +4,10 @@
 <% if alert %><div class="alert alert-warning" id="alert"><%= alert %></div><% end %>
 
 <h1>Orders Placed</h1>
+<%= will_paginate @orders %>
+<% cache(cache_key_for_buyer_orders(current_buyer)) do %>
 <% @orders.each do |order| %>
+	<% cache(cache_key_for_order(order)) do %>
 	<div class="jumbotron">
 		<h2><%= link_to order.item.name, "/items/#{order.item.id}" %></h2>
 		<p><small><%= order.item.description[0..49]+'...' %></small></p>
@@ -16,5 +19,8 @@
 			<%= link_to 'Rate This Order', new_rating_path(:order_id => order.id), class: "btn btn-primary" %>
 		<% end %>
 	</div>
+	<% end %>
 	<hr>
 <% end %>
+<% end %>
+<%= will_paginate @orders %>
