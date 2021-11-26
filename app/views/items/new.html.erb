@@ -14,7 +14,7 @@
       </ul>
     </div>
   <% end %>
-
+  <% cache(cache_key_for_new_item) do %>
   <div class="field">
     <%= form.label :name %>
     <%= form.text_field :name, :maximum => 100 %>
@@ -33,4 +33,5 @@
   <div class="actions">
     <%= form.submit "Register Product" %>
   </div>
+  <% end %>
 <% end %>
