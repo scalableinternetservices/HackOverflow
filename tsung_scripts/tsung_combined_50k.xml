@@ -85,7 +85,7 @@
 				</http>
 			</request>
 
-			<setdynvars sourcetype="random_number" start="1" end="10000">
+			<setdynvars sourcetype="random_number" start="1" end="50000">
 				<var name="rand_item"/>
 			</setdynvars>
 
@@ -133,10 +133,10 @@
 				</http>
 			</request>
 
-			<setdynvars sourcetype="random_number" start="5001" end="10000">
+			<setdynvars sourcetype="random_number" start="25001" end="50000">
 				<var name="item_1"/>
 			</setdynvars>
-			<setdynvars sourcetype="random_number" start="5001" end="10000">
+			<setdynvars sourcetype="random_number" start="25001" end="50000">
 				<var name="item_2"/>
 			</setdynvars>
 
@@ -201,7 +201,7 @@
 
 			<thinktime value='1' random='true'/>
 
-			<setdynvars sourcetype="random_number" start="1" end="500">
+			<setdynvars sourcetype="random_number" start="1" end="2500">
 				<var name="rand_order"/>
 			</setdynvars>
 
