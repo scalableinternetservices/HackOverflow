@@ -6,6 +6,8 @@
 #   movies = Movie.create([{ name: 'Star Wars' }, { name: 'Lord of the Rings' }])
 #   Character.create(name: 'Luke', movie: movies.first)
 
+require 'active_support/time'
+
 #################################
 # Clean the Tables before Seeding
 #################################
@@ -47,8 +49,20 @@ end
 #################################
 puts "DEBUG: Creating 50,000 Items. Might take a while..."
 
+items = []
+conn = ActiveRecord::Base.connection()
+
 for i in 1..50000 do
-  Item.create!(name: "Item_#{i}", description: "Half a league, half a league, half a league onward. All in the valley of Death. Rode the six hundred... Into the valley of death, rode the six hundred.", price: rand(0..2000), seller_id: rand(1..5)) # Only 5 sellers are considered.
+  item = ["Item_#{i}", "Half a league, half a league, half a league onward. All in the valley of Death. Rode the six hundred... Into the valley of death, rode the six hundred.", rand(0..2000), rand(1..5)]
+  items << item
+  #Item.create!(name: "Item_#{i}", description: "Half a league, half a league, half a league onward. All in the valley of Death. Rode the six hundred... Into the valley of death, rode the six hundred.", price: rand(0..2000), seller_id: rand(1..5)) # Only 5 sellers are considered.
+end
+
+items.in_groups_of(1000, fill_with = false) do |group|
+	values = group.map { |item| "('#{item[0]}', '#{item[1]}', '#{item[2]}', '#{item[3]}', '#{Time.now}', '#{Time.now}')" }.join(", ")
+	sql = "INSERT INTO items (title, description, price, seller_id, created_at, updated_at) VALUES #{values}"
+	conn.execute(sql)
+	puts "		Inserted #{group.size}/#{items.size} entries in items table"
 end
 
 #################################
