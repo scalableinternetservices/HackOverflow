@@ -60,7 +60,7 @@ end
 
 items.in_groups_of(1000, fill_with = false) do |group|
 	values = group.map { |item| "('#{item[0]}', '#{item[1]}', '#{item[2]}', '#{item[3]}', '#{Time.now}', '#{Time.now}')" }.join(", ")
-	sql = "INSERT INTO items (title, description, price, seller_id, created_at, updated_at) VALUES #{values}"
+	sql = "INSERT INTO items (name, description, price, seller_id, created_at, updated_at) VALUES #{values}"
 	conn.execute(sql)
 	puts "		Inserted #{group.size}/#{items.size} entries in items table"
 end
